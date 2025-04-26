@@ -3,6 +3,22 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --bg-primary-100: #e6f2ff;
+  --bg-primary-200: #cce5ff;
+  --bg-primary-300: #b3d9ff;
+  --bg-primary-400: #99ccff;
+  --bg-primary-500: #66b3ff;
+  --bg-primary-600: #3399ff;
+  --bg-primary-700: #007bff;
+  --bg-primary-800: #0066d9;
+  --bg-secondary-100: #f0f9ff;
+  --bg-secondary-200: #e0f2fe;
+  --bg-secondary-300: #cfebfe;
+  --bg-secondary-400: #b3d9ff;
+  --bg-secondary-500: #99ccff;
+  --bg-secondary-600: #66b3ff;
+  --bg-secondary-700: #3399ff;
+  --bg-secondary-800: #007bff;
 }
 
 @theme inline {
