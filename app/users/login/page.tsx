@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import useAuth from "../../context/authContext";
-import { InputSet } from "../../components/InputSet";
+import { InputSet } from "../../components/Input_set";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
