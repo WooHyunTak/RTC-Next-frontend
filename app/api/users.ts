@@ -12,22 +12,22 @@ interface LoginRequest {
 }
 
 const signup = async (request: SignupRequest) => {
-  const response = await axiosClient.post("/api/users/signup", request);
+  const response = await axiosClient.post("/api/users/signup/", request);
   return response.data;
 };
 
 const login = async (request: LoginRequest) => {
-  const response = await axiosClient.post("/api/users/login", request);
+  const response = await axiosClient.post("/api/users/login/", request);
   return response.data;
 };
 
 const logout = async () => {
-  const response = await axiosClient.post("/api/users/logout");
+  const response = await axiosClient.post("/api/users/logout/");
   return response.data;
 };
 
 const getUser = async () => {
-  const response = await axiosClient.get("/api/users/me");
+  const response = await axiosClient.get("/api/users/me/");
   return response.data;
 };
 

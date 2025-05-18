@@ -6,7 +6,7 @@ import usersApi from "../api/users";
 
 interface User {
   email: string;
-  nickname: string;
+  name: string;
 }
 
 interface AuthContextType {
@@ -35,12 +35,18 @@ const AuthContext = createContext<AuthContextType>({
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
-  const [isPending, setIsPending] = useState(true);
+  const [isPending, setIsPending] = useState(false);
 
   const getUser = async () => {
-    const response = await usersApi.getUser();
-    setUser(response.data);
-    setIsPending(false);
+    try {
+      setIsPending(true);
+      const response = await usersApi.getUser();
+      setUser(response.data);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsPending(false);
+    }
   };
 
   useEffect(() => {
@@ -83,8 +89,8 @@ export default function useAuth(redirect: boolean = true) {
   }
 
   useEffect(() => {
-    if (context.user && redirect && !context.isPending) {
-      router.push("/login");
+    if (!context.user && redirect && !context.isPending) {
+      router.push("/users/login");
     }
   }, [context.user, context.isPending, redirect]);
 

@@ -20,9 +20,14 @@ function Header() {
       </div>
       <div className="flex">
         {user ? (
-          <Button variant="secondary" size="small" onClick={handleLogout}>
-            Logout
-          </Button>
+          <div className="flex items-center gap-2">
+            <label className="text-lg font-medium text-white">
+              {user.name}
+            </label>
+            <Button variant="secondary" size="small" onClick={handleLogout}>
+              Logout
+            </Button>
+          </div>
         ) : (
           <Button variant="secondary" size="small" onClick={handleLogin}>
             Login
