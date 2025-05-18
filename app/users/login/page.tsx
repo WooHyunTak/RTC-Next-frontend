@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import useAuth from "../../context/authContext";
 import { InputSet } from "../../components/Input_set";
-
+import Link from "next/link";
 function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -53,6 +53,11 @@ function LoginPage() {
           >
             Login
           </button>
+
+          <div className="flex justify-center items-center gap-2">
+            <p>you don't have an account?</p>
+            <Link href="/users/signup">Sign up</Link>
+          </div>
         </div>
       </div>
     </div>

@@ -3,6 +3,8 @@
 import useAuth from "./context/authContext";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Nav from "./components/nav";
+import Header from "./components/header";
 
 export default function Home() {
   const { user, logout } = useAuth(false);
@@ -19,11 +21,11 @@ export default function Home() {
   };
 
   return (
-    <div>
-      <h1>dashboard</h1>
-      <button className="btn btn-primary" onClick={handleLogin}>
-        sing in
-      </button>
-    </div>
+    <>
+      <Header />
+      <div className="flex h-full w-full">
+        <Nav />
+      </div>
+    </>
   );
 }
