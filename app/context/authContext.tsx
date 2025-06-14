@@ -41,7 +41,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     try {
       setIsPending(true);
       const response = await usersApi.getUser();
-      setUser(response.data);
+      setUser(response);
     } catch (error) {
       console.error(error);
     } finally {
@@ -50,7 +50,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   useEffect(() => {
-    // getUser();
+    getUser();
   }, []);
 
   const logout = async () => {
