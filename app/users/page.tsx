@@ -3,6 +3,7 @@
 import { useState } from "react";
 import usersApi from "../api/users";
 import { useRouter } from "next/navigation";
+import useAuth from "../context/authContext";
 
 function UsersPage() {
   const router = useRouter();
@@ -10,6 +11,7 @@ function UsersPage() {
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [nickname, setNickname] = useState("");
+  const { register } = useAuth(false);
   const confirmPassword = () => {
     if (password !== passwordConfirm) {
       alert("Password and Confirm Password do not match");
@@ -22,8 +24,8 @@ function UsersPage() {
     e.preventDefault();
     if (!confirmPassword()) return;
     try {
-      await usersApi.register(email, password, nickname);
-      router.push("/login");
+      await register(email, password, nickname);
+      router.push("/users/login");
     } catch (error) {
       console.error(error);
     }

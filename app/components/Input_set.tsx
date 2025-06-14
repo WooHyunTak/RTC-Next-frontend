@@ -17,7 +17,7 @@ export const InputSet = ({ label, id, error, ...props }: InputSetProps) => {
         className="rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
         {...props}
       />
-      <p className="text-red-500 text-sm">{error}</p>
+      <p className=" text-sm text-error-500">{error}</p>
     </div>
   );
 };

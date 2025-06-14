@@ -30,7 +30,7 @@ const defaultForm: SignupForm = {
 
 function SignupPage() {
   const [value, setValue] = useState<SignupForm>(defaultForm);
-  const { register } = useAuth();
+  const { register } = useAuth(false);
   const router = useRouter();
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue({ ...value, [e.target.id]: e.target.value });
@@ -47,12 +47,12 @@ function SignupPage() {
       return;
     }
     await register(value.email, value.password, value.username);
-    router.push("/main");
+    router.push("/users/login");
   };
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-100">
-      <div className="w-full max-w-md">
+      <div className="w-[800px] max-w-md">
         <div className="flex flex-col bg-white rounded-lg shadow-md p-8 gap-4">
           <h1 className="text-2xl font-bold">Signup</h1>
           <InputSet

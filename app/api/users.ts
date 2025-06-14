@@ -1,14 +1,14 @@
 import axiosClient from "./axios_client";
 
 interface SignupRequest {
-  email: string;
-  password: string;
-  nickname: string;
+  loginEmail: string;
+  loginPassword: string;
+  name: string;
 }
 
 interface LoginRequest {
-  email: string;
-  password: string;
+  loginEmail: string;
+  loginPassword: string;
 }
 
 const signup = async (request: SignupRequest) => {

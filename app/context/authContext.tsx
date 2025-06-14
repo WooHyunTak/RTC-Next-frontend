@@ -59,7 +59,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const login = async (email: string, password: string) => {
-    const response = await usersApi.login({ email, password });
+    const response = await usersApi.login({
+      loginEmail: email,
+      loginPassword: password,
+    });
     setUser(response.data);
   };
 
@@ -68,7 +71,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     password: string,
     nickname: string
   ) => {
-    const response = await usersApi.signup({ email, password, nickname });
+    const response = await usersApi.signup({
+      loginEmail: email,
+      loginPassword: password,
+      name: nickname,
+    });
     setUser(response.data);
   };
 

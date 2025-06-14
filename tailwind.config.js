@@ -1,9 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    "./app/**/*.{js,ts,jsx,tsx}",
-    "./pages/**/*.{js,ts,jsx,tsx}",
-    "./components/**/*.{js,ts,jsx,tsx}",
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./app/components/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   darkMode: "class",
   theme: {
@@ -11,14 +12,15 @@ module.exports = {
       colors: {
         // 기본(primary) 테마: CSS 변수로 동적 테마 지원
         primary: {
-          100: "var(--bg-primary-100)",
-          200: "var(--bg-primary-200)",
-          300: "var(--bg-primary-300)",
-          400: "var(--bg-primary-400)",
-          500: "var(--bg-primary-500)",
-          600: "var(--bg-primary-600)",
-          700: "var(--bg-primary-700)",
-          800: "var(--bg-primary-800)",
+          100: '#f3f4f6',
+          200: '#e5e7eb',
+          300: '#d1d5db',
+          400: '#9ca3af',
+          500: '#6b7280',
+          600: '#4b5563',
+          700: '#374151',
+          800: '#1f2937',
+          900: '#111827',
         },
         // 보조(secondary) 테마
         secondary: {
@@ -54,6 +56,11 @@ module.exports = {
           100: "#eff6ff",
           500: "#3b82f6",
           600: "#1e3a8a",
+        },
+        error: {
+          100: "var(--color-error-100)",
+          500: "var(--color-error-500)",
+          600: "var(--color-error-600)",
         },
       },
     },
