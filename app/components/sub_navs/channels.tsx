@@ -18,7 +18,7 @@ function ChannelItem({ channel }: ChannelProps) {
   const { name, isPrivate, type } = channel;
 
   return (
-    <div className="flex items-center gap-4 hover:bg-blue-600 p-2 rounded-md">
+    <div className="flex items-center gap-2 hover:bg-blue-600 p-2 rounded-md">
       <div className="flex items-center justify-center w-8 h-8 relative">
         {isPrivate ? (
           <FontAwesomeIcon icon={faLock} />
@@ -27,7 +27,10 @@ function ChannelItem({ channel }: ChannelProps) {
         )}
       </div>
       <div className="gap-2">
-        [{type}] {name}
+        <span className="text-sm">{name}</span>
+        <span className="text-xs ">
+          [{type}]
+        </span>
       </div>
     </div>
   );

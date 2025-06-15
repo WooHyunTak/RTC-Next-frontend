@@ -30,7 +30,7 @@ function IconBox({ name, size, label, position, onClick }: IconProps) {
 
   return (
     <div
-      className={`flex w-full items-center ${positions[positionProp]} gap-4 hover:cursor-pointer hover:bg-blue-600 rounded-md p-2`}
+      className={`flex w-full items-center ${positions[positionProp]} gap-2 hover:cursor-pointer hover:bg-blue-600 rounded-md p-2`}
       onClick={onClick}
     >
       {icon}

@@ -14,7 +14,7 @@ function Header() {
   };
 
   return (
-    <div className="flex h-[80px] bg-blue-500 text-white justify-between items-center p-4">
+    <div className="flex bg-blue-500 text-white justify-between items-center p-2">
       <div className="flex items-center">
         <label className="text-2xl font-bold">RTC-Django-chat</label>
       </div>
