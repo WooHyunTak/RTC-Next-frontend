@@ -4,6 +4,7 @@ import { useState } from "react";
 import friends from '@/app/data/friends'
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Tooltip from "../tooltip";
 
 interface FriendItemProps { 
   item: {
@@ -40,12 +41,16 @@ function FriendItem({item}: FriendItemProps) {
         <span className="text-white">{item.name}</span>
         <span className="text-white">{item.isOnline ? "온라인" : "오프라인"}</span>
       </div>
-      <div className="flex w-[32px] h-[32px] bg-blue-800 rounded-full items-center justify-center">
-        <FontAwesomeIcon icon={faMessage} className="text-white" />
-      </div>
-      <div className="flex w-[32px] h-[32px] bg-blue-800 rounded-full items-center justify-center">
-        <FontAwesomeIcon icon={faEllipsisVertical} className="text-white" />
-      </div>
+      <Tooltip text="메시지 보내기" position="top">
+        <div className="flex w-[32px] h-[32px] bg-blue-800 rounded-full items-center justify-center">
+          <FontAwesomeIcon icon={faMessage} className="text-white" />
+        </div>
+      </Tooltip>
+      <Tooltip text="더보기" position="top">
+        <div className="flex w-[32px] h-[32px] bg-blue-800 rounded-full items-center justify-center">
+          <FontAwesomeIcon icon={faEllipsisVertical} className="text-white" />
+        </div>
+      </Tooltip>
     </div>
   );
 }
@@ -57,9 +62,15 @@ function DefaultMain() {
     <div className="flex flex-col w-full h-full pl-4 pr-4 bg-blue-800">
       <div className="flex w-full justify-between bg-blue-800 pt-4 pb-2">
           <div className="flex w-ful gap-2">
-              <ButtonSet icon={faUser} size="sm" label="친구" />
-              <ButtonSet icon={faUsers} size="sm" label="모두" />
-              <ButtonSet icon={faSearch} size="sm" label="친구찾기" />
+              <Tooltip text="친구 목록을 보여줍니다" position="bottom">
+                <ButtonSet icon={faUser} size="sm" label="친구" />
+              </Tooltip>
+              <Tooltip text="모든 사용자를 보여줍니다" position="bottom">
+                <ButtonSet icon={faUsers} size="sm" label="모두" />
+              </Tooltip>
+              <Tooltip text="친구를 검색합니다" position="bottom">
+                <ButtonSet icon={faSearch} size="sm" label="친구찾기" />
+              </Tooltip>
           </div>
       </div>
       <div className="flex flex-col w-full h-full bg-blue-800">
