@@ -17,7 +17,7 @@ function DefaultNav() {
   };
 
   return (
-    <div className="flex w-[400px] h-full flex-col gap-6 bg-blue-700 text-white p-4">
+    <div className="flex w-[400px] h-full flex-col gap-6 bg-blue-700 text-white p-4 overflow-y-auto">
       <div className="flex w-full flex-col">
         <div
           className="flex items-center text-lg gap-4 hover:cursor-pointer hover:bg-blue-600 rounded-md p-2"

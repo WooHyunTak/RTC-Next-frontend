@@ -17,7 +17,7 @@ function Main() {
   return (
     <>
       <Header />
-      <div className="flex h-full w-full">
+      <div className="flex h-full w-full overflow-hidden">
         <Nav />
         {subnav.nav === "default" ? <DefaultNav /> : <DirectMessages />}
       </div>
