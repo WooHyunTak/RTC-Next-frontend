@@ -62,13 +62,11 @@ function DefaultMain() {
     <div className="flex flex-col w-full h-full pl-4 pr-4 bg-blue-800">
       <div className="flex w-full justify-between bg-blue-800 pt-4 pb-2">
           <div className="flex w-ful gap-2">
-              <Tooltip text="친구 목록을 보여줍니다" position="bottom">
-                <ButtonSet icon={faUser} size="sm" label="친구" />
-              </Tooltip>
-              <Tooltip text="모든 사용자를 보여줍니다" position="bottom">
+              <ButtonSet icon={faUser} size="sm" label="친구" />
+              <Tooltip text="모든 친구 목록을 보여줍니다" position="bottom">
                 <ButtonSet icon={faUsers} size="sm" label="모두" />
               </Tooltip>
-              <Tooltip text="친구를 검색합니다" position="bottom">
+              <Tooltip text="사용자를 검색합니다" position="bottom">
                 <ButtonSet icon={faSearch} size="sm" label="친구찾기" />
               </Tooltip>
           </div>

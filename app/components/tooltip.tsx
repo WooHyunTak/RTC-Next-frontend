@@ -6,8 +6,9 @@ interface TooltipProps {
     children: React.ReactNode;
 }
 
-function Tooltip({ text, position, children }: TooltipProps) {
+function Tooltip({ text, position: initialPosition, children }: TooltipProps) {
     const [isTooltipVisible, setIsTooltipVisible] = useState(false);
+    const [position, setPosition] = useState(initialPosition);
     const tooltipRef = useRef<HTMLDivElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
 
@@ -26,6 +27,56 @@ function Tooltip({ text, position, children }: TooltipProps) {
         }
     };
 
+    useEffect(() => {
+        const adjustPosition = () => {
+            if (!tooltipRef.current || !containerRef.current || !isTooltipVisible) return;
+
+            const tooltipRect = tooltipRef.current.getBoundingClientRect();
+            const containerRect = containerRef.current.getBoundingClientRect();
+            const padding = 10; // 화면 경계와의 최소 간격
+
+            // 초기 위치 설정
+            let newPosition = initialPosition;
+
+            // 화면 경계 체크
+            if (initialPosition === 'top' && tooltipRect.top < padding) {
+                newPosition = 'bottom';
+            } else if (initialPosition === 'bottom' && tooltipRect.bottom > window.innerHeight - padding) {
+                newPosition = 'top';
+            } else if (initialPosition === 'left' && tooltipRect.left < padding) {
+                newPosition = 'right';
+            } else if (initialPosition === 'right' && tooltipRect.right > window.innerWidth - padding) {
+                newPosition = 'left';
+            }
+
+            // 수평 방향 오버플로우 체크 (top/bottom 위치일 때)
+            if ((newPosition === 'top' || newPosition === 'bottom') && 
+                (tooltipRect.left < padding || tooltipRect.right > window.innerWidth - padding)) {
+                // 컨테이너 중앙에서 왼쪽으로 치우친 경우
+                if (containerRect.left < window.innerWidth / 2) {
+                    tooltipRef.current.style.left = '0';
+                    tooltipRef.current.style.transform = 'translateX(0)';
+                } else {
+                    tooltipRef.current.style.left = 'auto';
+                    tooltipRef.current.style.right = '0';
+                    tooltipRef.current.style.transform = 'translateX(0)';
+                }
+            }
+
+            setPosition(newPosition);
+        };
+
+        // 툴팁이 표시될 때와 윈도우 리사이즈시 위치 조정
+        adjustPosition();
+        window.addEventListener('resize', adjustPosition);
+        window.addEventListener('scroll', adjustPosition);
+
+        return () => {
+            window.removeEventListener('resize', adjustPosition);
+            window.removeEventListener('scroll', adjustPosition);
+        };
+    }, [isTooltipVisible, initialPosition]);
+
     return (
         <div 
             className="relative inline-block"
@@ -36,7 +87,7 @@ function Tooltip({ text, position, children }: TooltipProps) {
             {isTooltipVisible && (
                 <div
                     ref={tooltipRef}
-                    className={`absolute ${getTooltipPosition()} z-50 px-2 py-1 text-sm text-white bg-gray-900 rounded-md whitespace-nowrap transition-opacity duration-200 ${isTooltipVisible ? 'opacity-100' : 'opacity-0'}`}
+                    className={`absolute ${getTooltipPosition()} z-50 px-2 py-1 text-sm text-white bg-gray-900 rounded-md whitespace-nowrap transition-all duration-200 ${isTooltipVisible ? 'opacity-100' : 'opacity-0'}`}
                 >
                     {text}
                     <div className={`absolute w-2 h-2 bg-gray-900 transform rotate-45 
