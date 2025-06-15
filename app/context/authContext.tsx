@@ -59,11 +59,15 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const login = async (email: string, password: string) => {
-    const response = await usersApi.login({
-      loginEmail: email,
-      loginPassword: password,
-    });
-    setUser(response.data);
+    try {
+      const response = await usersApi.login({
+        loginEmail: email,
+        loginPassword: password,
+      });
+      setUser(response);
+    } catch (error) {
+      throw error;
+    }
   };
 
   const register = async (

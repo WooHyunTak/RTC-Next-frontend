@@ -24,12 +24,12 @@ function Header() {
             <label className="text-lg font-medium text-white">
               {user.name}
             </label>
-            <Button variant="secondary" size="small" onClick={handleLogout}>
+            <Button variant="secondary" size="sm" onClick={handleLogout}>
               Logout
             </Button>
           </div>
         ) : (
-          <Button variant="secondary" size="small" onClick={handleLogin}>
+          <Button variant="secondary" size="sm" onClick={handleLogin}>
             Login
           </Button>
         )}

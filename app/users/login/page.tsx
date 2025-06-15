@@ -5,19 +5,38 @@ import { useRouter } from "next/navigation";
 import useAuth from "../../context/authContext";
 import { InputSet } from "../../components/Input_set";
 import Link from "next/link";
+import MessageModal from "../../components/message_modal";
+
 function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
   const router = useRouter();
-
+  const [isOpen, setIsOpen] = useState(false);
   const { user, login } = useAuth();
-  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
+
+  const handleSubmit = async () => {
     try {
       await login(email, password);
       router.push("/main");
-    } catch (error) {
-      console.error(error);
+    } catch (error: any) {
+      openMessageModal(error.response.data.message);
+    }
+  };
+
+  const openMessageModal = (message: string) => {
+    setMessage(message);
+    setIsOpen(true);
+  };
+
+  const closeMessageModal = () => {
+    setMessage("");
+    setIsOpen(false);
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleSubmit();
     }
   };
 
@@ -38,12 +57,14 @@ function LoginPage() {
             id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            onKeyPress={handleKeyPress}
           />
           <InputSet
             label="Password"
             type="password"
             id="password"
             value={password}
+            onKeyPress={handleKeyPress}
             onChange={(e) => setPassword(e.target.value)}
           />
           <button
@@ -60,6 +81,7 @@ function LoginPage() {
           </div>
         </div>
       </div>
+      {isOpen && <MessageModal title="Login Failed" message={message} onClose={closeMessageModal}/>}
     </div>
   );
 }
