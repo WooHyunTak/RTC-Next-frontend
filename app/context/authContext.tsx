@@ -42,6 +42,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       setIsPending(true);
       const response = await usersApi.getUser();
       setUser(response);
+      connectWebSocket();
     } catch (error) {
       console.error(error);
     } finally {
@@ -64,10 +65,31 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         loginEmail: email,
         loginPassword: password,
       });
+
+      connectWebSocket();
       setUser(response);
     } catch (error) {
+      console.log(error);
       throw error;
     }
+  };
+
+  const connectWebSocket = () => {
+    const websocket = new WebSocket(
+      `${process.env.NEXT_PUBLIC_WEBSOCKET_URL}:${process.env.NEXT_PUBLIC_WEBSOCKET_PORT}/ws/users/`
+    );
+
+    websocket.onopen = () => {
+      console.log("WebSocket connected");
+    };
+
+    websocket.onmessage = (event) => {
+      console.log(event.data);
+    };
+
+    websocket.onclose = () => {
+      console.log("WebSocket disconnected");
+    };
   };
 
   const register = async (

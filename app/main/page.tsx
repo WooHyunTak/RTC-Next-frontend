@@ -16,9 +16,9 @@ interface MainContents {
 }
 
 function Main() {
+  const { user } = useAuth();
   const [subnav, setSubnav] = useState<NavType>({ nav: "default" });
   const [mainContents, setMainContents] = useState<MainContents>({ main: "default" });
-  useAuth();
 
   return (
     <>
