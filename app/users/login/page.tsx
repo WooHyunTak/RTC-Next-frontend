@@ -2,10 +2,10 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import useAuth from "../../context/authContext";
+import useAuth from "../../context/AuthContext";
 import { InputSet } from "../../components/Input_set";
 import Link from "next/link";
-import MessageModal from "../../components/message_modal";
+import MessageModal from "../../components/Message_modal";
 
 function LoginPage() {
   const [email, setEmail] = useState("");

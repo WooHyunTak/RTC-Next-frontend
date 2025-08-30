@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import Icon from "./icon_box";
+import Icon from "./Icon_box";
 import {
   faHouse,
   faMessage,

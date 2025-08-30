@@ -1,12 +1,12 @@
 "use client";
 
-import Nav from "../components/nav";
-import DefaultNav from "../components/sub_navs/default_nav";
-import DirectMessages from "../components/sub_navs/direct_messages";
+import Nav from "../components/Nav";
+import DefaultNav from "../components/sub_navs/Default_nav";
+import DirectMessages from "../components/sub_navs/Direct_messages";
 import { useState } from "react";
-import Header from "../components/header";
-import useAuth from "../context/authContext";
-import DefaultMain from "../components/main_contents/default";
+import Header from "../components/Header";
+import useAuth from "../context/AuthContext";
+import DefaultMain from "../components/main_contents/Default";
 interface NavType {
   nav: "default" | "sub" | "none";
 }

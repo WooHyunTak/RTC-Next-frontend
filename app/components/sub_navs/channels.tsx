@@ -1,6 +1,10 @@
-import channels from "@/app/data/channels";
+'use client'
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock, faLockOpen } from "@fortawesome/free-solid-svg-icons";
+import { useQuery } from "@tanstack/react-query";
+import channelsApi from "../../api/channels";
+
 
 interface ChannelProps {
   channel: {
@@ -16,6 +20,7 @@ interface ChannelProps {
 
 function ChannelItem({ channel }: ChannelProps) {
   const { name, isPrivate, type } = channel;
+  
 
   return (
     <div className="flex items-center gap-2 hover:bg-blue-600 p-2 rounded-md">
@@ -28,18 +33,25 @@ function ChannelItem({ channel }: ChannelProps) {
       </div>
       <div className="gap-2">
         <span className="text-sm">{name}</span>
-        <span className="text-xs ">
-          [{type}]
-        </span>
+        {type && (
+          <span className="text-xs ">
+            [{type}]
+          </span>
+        )}
       </div>
     </div>
   );
 }
 
 function Channels() {
+  const { data : channels } = useQuery({
+    queryKey: ["my-channels"],
+    queryFn: channelsApi.getMyChannels,
+  });
+
   return (
     <div className="flex flex-col gap-2">
-      {channels.map((channel) => (
+      {channels?.list.map((channel: ChannelProps["channel"]) => (
         <ChannelItem key={channel.id} channel={channel} />
       ))}
     </div>

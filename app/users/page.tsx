@@ -3,7 +3,7 @@
 import { useState } from "react";
 import usersApi from "../api/users";
 import { useRouter } from "next/navigation";
-import useAuth from "../context/authContext";
+import useAuth from "../context/AuthContext";
 
 function UsersPage() {
   const router = useRouter();

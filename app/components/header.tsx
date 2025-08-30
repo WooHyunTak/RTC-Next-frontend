@@ -1,6 +1,6 @@
-import Button from "./button";
+import Button from "./Button";
 import { useRouter } from "next/navigation";
-import useAuth from "@/app/context/authContext";
+import useAuth from "@/app/context/AuthContext";
 
 function Header() {
   const router = useRouter();

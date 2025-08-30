@@ -1,12 +1,12 @@
 "use client";
 
 import { InputSet } from "@/app/components/Input_set";
-import Button from "@/app/components/button";
+import Button from "@/app/components/Button";
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import SignupValidation from "./validation";
-import useAuth from "@/app/context/authContext";
+import useAuth from "@/app/context/AuthContext";
 interface SignupForm {
   email: string;
   password: string;

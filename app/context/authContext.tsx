@@ -66,7 +66,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         loginPassword: password,
       });
 
-      connectWebSocket();
+      // connectWebSocket();
       setUser(response);
     } catch (error) {
       console.log(error);

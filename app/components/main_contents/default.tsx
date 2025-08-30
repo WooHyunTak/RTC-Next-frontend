@@ -1,10 +1,10 @@
-import ButtonSet from "../button_set";
+import ButtonSet from "../Button_set";
 import { faUser, faUsers, faSearch, faEllipsisVertical, faMessage, faCircle } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import friends from '@/app/data/friends'
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Tooltip from "../tooltip";
+import Tooltip from "../Tooltip";
 
 interface FriendItemProps { 
   item: {
