@@ -1,3 +1,5 @@
+"use client";
+
 import { TextareaHTMLAttributes } from "react";
 
 interface TextareaSetProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
@@ -6,9 +8,10 @@ interface TextareaSetProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   maxLength?: number;
   error?: string;
   onKeyPress?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
+  handleChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
-export const TextareaSet = ({ label, id, error, onKeyPress, maxLength, ...props }: TextareaSetProps) => {
+function TextareaSet({ label, id, error, onKeyPress, maxLength, handleChange, ...props }: TextareaSetProps) {
   return (
     <div className="flex flex-col gap-2">
       <label htmlFor={id} className="text-sm font-medium text-gray-700">
@@ -20,8 +23,11 @@ export const TextareaSet = ({ label, id, error, onKeyPress, maxLength, ...props 
         maxLength={maxLength}
         {...props}
         onKeyUp={onKeyPress}
+        onChange={e => handleChange(e)}
       />
       <p className=" text-sm text-error-500">{error}</p>
     </div>
   );
-};
+}
+
+export default TextareaSet;

@@ -1,6 +1,6 @@
 "use client";
 
-import { InputSet } from "@/app/components/Input_set";
+import InputSet from "@/app/components/Input_set";
 import Button from "@/app/components/Button";
 import Link from "next/link";
 import { useState } from "react";
@@ -60,7 +60,7 @@ function SignupPage() {
             type="email"
             id="email"
             value={value.email}
-            onChange={handleChange}
+            handleChange={handleChange}
             error={validate().email}
           />
           <InputSet
@@ -68,7 +68,7 @@ function SignupPage() {
             type="password"
             id="password"
             value={value.password}
-            onChange={handleChange}
+            handleChange={handleChange}
             error={validate().password}
           />
           <InputSet
@@ -76,7 +76,7 @@ function SignupPage() {
             type="password"
             id="confirmPassword"
             value={value.confirmPassword}
-            onChange={handleChange}
+            handleChange={handleChange}
             error={validate().confirmPassword}
           />
           <InputSet
@@ -84,9 +84,9 @@ function SignupPage() {
             type="text"
             id="username"
             value={value.username}
-            onChange={handleChange}
+            handleChange={handleChange}
           />
-          <Button variant="primary" size="small" onClick={handleSignup}>
+          <Button variant="primary" size="sm" onClick={handleSignup}>
             Signup
           </Button>
           <div className="flex justify-center items-center gap-2">

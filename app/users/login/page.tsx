@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import useAuth from "../../context/AuthContext";
-import { InputSet } from "../../components/Input_set";
+import InputSet from "../../components/Input_set";
 import Link from "next/link";
 import MessageModal from "../../components/Message_modal";
 
@@ -56,7 +56,7 @@ function LoginPage() {
             type="email"
             id="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            handleChange={(e) => setEmail(e.target.value)}
             onKeyPress={handleKeyPress}
           />
           <InputSet
@@ -65,7 +65,7 @@ function LoginPage() {
             id="password"
             value={password}
             onKeyPress={handleKeyPress}
-            onChange={(e) => setPassword(e.target.value)}
+            handleChange={(e) => setPassword(e.target.value)}
           />
           <button
             type="submit"
@@ -81,7 +81,7 @@ function LoginPage() {
           </div>
         </div>
       </div>
-      {isOpen && <MessageModal title="Login Failed" message={message} onClose={closeMessageModal}/>}
+        {isOpen && <MessageModal title="Login Failed" message={message} handleClose={closeMessageModal}/>}
     </div>
   );
 }
