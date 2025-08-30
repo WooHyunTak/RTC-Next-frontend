@@ -3,7 +3,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { AuthProvider } from "./context/authContext";
+import { AuthProvider } from "./context/AuthContext";
+import QueryProvider from "./providers/QueryClientProvider";  
 
 const inter = Inter({
   subsets: ["latin"],
@@ -15,12 +16,19 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  
+
   return (
     <html lang="en">
       <body
         className={`${inter.variable} antialiased bg-primary-100 h-screen w-full flex flex-col`}
       >
-        <AuthProvider>{children}</AuthProvider>
+        <QueryProvider>
+          <AuthProvider>
+            {children}
+            </AuthProvider>
+        </QueryProvider>
       </body>
     </html>
   );
