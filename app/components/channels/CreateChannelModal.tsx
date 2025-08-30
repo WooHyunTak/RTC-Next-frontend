@@ -3,6 +3,7 @@
 import ModalTemplate from "../ModalTemplate";
 import Button from "../Button";
 import { InputSet } from "../Input_set";
+import { TextareaSet } from "../Textarea_set";
 
 interface CreateChannelModalProps {
     openState: (value: boolean) => void;
@@ -26,7 +27,7 @@ function CreateChannelModal({ openState }: CreateChannelModalProps) {
                 </header>
                 <div className="flex flex-col gap-2 w-[500px]">
                     <InputSet label="Name" id="channelName" placeholder="Channel Name" />
-                    <InputSet label="Description" type="textarea" id="channelDescription" placeholder="Channel Description" />
+                    <TextareaSet label="Description" id="channelDescription" placeholder="Channel Description" maxLength={1000} />
                     <InputSet label="Category" id="channelCategory" placeholder="Channel Category" />
                     <InputSet label="Private channel" type="checkbox" id="privateChannel" placeholder="Private Channel" />
 
