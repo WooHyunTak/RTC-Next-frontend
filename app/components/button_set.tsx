@@ -5,6 +5,7 @@ interface ButtonSetProps {
   color?: Color;
   label: string;
   size?: "sm" | "md" | "lg";
+  clicked?: boolean;
   handleClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
 
@@ -16,6 +17,7 @@ function ButtonSet({
   label,
   handleClick,  
   size = "md",
+  clicked = true,
 }: ButtonSetProps) {
   const sizes = {
     xs: "text-xs",
@@ -35,10 +37,10 @@ function ButtonSet({
 
   return (
     <div
-      className={`flex ${colors[color]} items-center justify-between hover:cursor-pointer hover:bg-blue-600 rounded-md gap-2 p-2`}
+      className={`flex ${colors[color]} ${clicked ? "hover:cursor-pointer hover:bg-blue-600" : ""} items-center justify-between rounded-md gap-2 p-2`}
       onClick={handleClick}
     >
-      <button className={`rounded-md flex items-center gap-2`}>
+      <button className={`rounded-md flex items-center gap-2`} disabled={!clicked}>
         {leftIcon}
       </button>
       <span className={`flex-1 ${sizes[size]}`}>{label}</span>
