@@ -5,6 +5,7 @@ import friends from '@/app/data/friends'
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Tooltip from "../Tooltip";
+import RequestFriendModal from "../users/FindUserModal";
 
 interface FriendItemProps { 
   item: {
@@ -57,31 +58,34 @@ function FriendItem({item}: FriendItemProps) {
 
 function DefaultMain() {
   const [itemState, setItemState] = useState("friend")
-
+  const [isOpenFindUserModal, setIsOpenFindUserModal] = useState(false);
   return (
-    <div className="flex flex-col w-full h-full pl-4 pr-4 bg-blue-800">
-      <div className="flex w-full justify-between bg-blue-800 pt-4 pb-2">
-          <div className="flex w-ful gap-2">
-              <ButtonSet icon={faUser} size="sm" label="친구" />
-              <Tooltip text="모든 친구 목록을 보여줍니다" position="bottom">
-                <ButtonSet icon={faUsers} size="sm" label="모두" />
-              </Tooltip>
-              <Tooltip text="사용자를 검색합니다" position="bottom">
-                <ButtonSet icon={faSearch} size="sm" label="친구찾기" />
-              </Tooltip>
-          </div>
-      </div>
-      <div className="flex flex-col w-full h-full bg-blue-800">
-        <div className="flex w-full justify-between bg-blue-800 pt-4 pb-4">
-          <span className="text-white">모든 친구 - {friends.length}명</span>
+    <>
+      <div className="flex flex-col w-full h-full pl-4 pr-4 bg-blue-800">
+        <div className="flex w-full justify-between bg-blue-800 pt-4 pb-2">
+            <div className="flex w-ful gap-2">
+                <ButtonSet icon={faUser} size="sm" label="친구" />
+                <Tooltip text="모든 친구 목록을 보여줍니다" position="bottom">
+                  <ButtonSet icon={faUsers} size="sm" label="모두" />
+                </Tooltip>
+                <Tooltip text="사용자를 검색합니다" position="bottom">
+                  <ButtonSet handleClick={() => {setIsOpenFindUserModal(true)}} icon={faSearch} size="sm" label="친구찾기" />
+                </Tooltip>
+            </div>
         </div>
-        {itemState == "friend" && 
-          friends.map((item) => (
-            <FriendItem key={item.id} item={item} />
-          ))
-        }
-      </div>  
-    </div>
+        <div className="flex flex-col w-full h-full bg-blue-800">
+          <div className="flex w-full justify-between bg-blue-800 pt-4 pb-4">
+            <span className="text-white">모든 친구 - {friends.length}명</span>
+          </div>
+          {itemState == "friend" && 
+            friends.map((item) => (
+              <FriendItem key={item.id} item={item} />
+            ))
+          }
+        </div>  
+      </div>
+      {isOpenFindUserModal && <RequestFriendModal openState={setIsOpenFindUserModal} />}
+    </>
   );
 }
 

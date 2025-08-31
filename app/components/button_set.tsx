@@ -5,11 +5,7 @@ interface ButtonSetProps {
   color?: Color;
   label: string;
   size?: "sm" | "md" | "lg";
-  actionIcon?: {
-    name: IconProp;
-    onClick?: () => void;
-  };
-  onClick?: () => void;
+  handleClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
 
 type Color = "blue" | "red" | "green";
@@ -18,8 +14,7 @@ function ButtonSet({
   icon,
   color = "blue",
   label,
-  actionIcon,
-  onClick,
+  handleClick,  
   size = "md",
 }: ButtonSetProps) {
   const sizes = {
@@ -37,27 +32,16 @@ function ButtonSet({
   };
 
   const leftIcon = <FontAwesomeIcon icon={icon} className={sizes[size]} />;
-  const rightIcon = actionIcon ? (
-    <FontAwesomeIcon icon={actionIcon.name} className={sizes[size]} />
-  ) : null;
 
   return (
     <div
       className={`flex ${colors[color]} items-center justify-between hover:cursor-pointer hover:bg-blue-600 rounded-md gap-2 p-2`}
-      onClick={onClick}
+      onClick={handleClick}
     >
       <button className={`rounded-md flex items-center gap-2`}>
         {leftIcon}
       </button>
       <span className={`flex-1 ${sizes[size]}`}>{label}</span>
-      {actionIcon && (
-        <button
-          className={`${colors[color]} px-4 py-2 rounded-md flex items-center gap-2`}
-          onClick={actionIcon.onClick}
-        >
-          {rightIcon}
-        </button>
-      )}
     </div>
   );
 }
