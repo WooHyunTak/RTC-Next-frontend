@@ -9,6 +9,7 @@ import { useState } from "react";
 import IconBox from "../Icon_box";
 import CreateChannelModal from "../channels/CreateChannelModal";
 
+// 채널 더보기 컴포넌트
 function AdditionalInfo({ id }: { id: number }) {
   const [openCreateChannelModal, setOpenCreateChannelModal] = useState(false);
   const [channel, setChannel] = useState<ChannelResponse | null>(null);
@@ -21,7 +22,9 @@ function AdditionalInfo({ id }: { id: number }) {
   const handelOpenChannelModal = async (e: React.MouseEvent<HTMLSpanElement>) => {
     e.preventDefault();
     e.stopPropagation();
+    // 모달에 전달할 채널 데이터 조회
     await getChannel();
+    // 모달 열기
     setOpenCreateChannelModal(true);
   };
 
@@ -32,6 +35,7 @@ function AdditionalInfo({ id }: { id: number }) {
         <span className="text-sm w-full p-2 rounded-md hover:cursor-pointer hover:bg-[var(--bg-primary-700)]">채널 삭제</span>
         <span className="text-sm w-full p-2 rounded-md hover:cursor-pointer hover:bg-[var(--bg-primary-700)]">채널 나가기</span>
       </div>
+      {/* 채널 수정 모달 */}
       {openCreateChannelModal && <CreateChannelModal openState={setOpenCreateChannelModal} modalType="update" channelItem={channel} />}
     </>
     
@@ -39,6 +43,7 @@ function AdditionalInfo({ id }: { id: number }) {
 }
 
 
+// 채널 아이템 컴포넌트
 function ChannelItem(channel : ChannelResponse) {
   const { id, name, is_private : isPrivate, type } = channel;
 
@@ -48,6 +53,7 @@ function ChannelItem(channel : ChannelResponse) {
   return (
     <>
       <div className="flex items-center justify-between gap-2 hover:bg-blue-600 p-2 rounded-md"
+        // 더보기 아이콘 표시
         onMouseEnter={() => setHideAdditionalInfo(true)}
         onMouseLeave={() => setHideAdditionalInfo(false)}
         >
@@ -75,6 +81,7 @@ function ChannelItem(channel : ChannelResponse) {
         )}
       </div>
       {openAdditionalInfo && (
+        // 채널 더보기 컴포넌트
         <AdditionalInfo id={id} />
       )}
     </>
@@ -82,6 +89,7 @@ function ChannelItem(channel : ChannelResponse) {
 }
 
 function Channels() {
+  // 내가 참여한 채널 목록 조회
   const { data : channels } = useQuery({
     queryKey: ["my-channels"],
     queryFn: channelsApi.getMyChannels,
