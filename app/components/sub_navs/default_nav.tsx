@@ -44,7 +44,7 @@ function DefaultNav() {
           </div>
           <Button size="sm" onClick={openCreateChannelModal}>+</Button>
         </div>
-        {isCreateChannelOpen && <CreateChannelModal openState={setIsCreateChannelOpen} />}
+        {isCreateChannelOpen && <CreateChannelModal openState={setIsCreateChannelOpen} modalType="create" />}
         {isChannelsOpen && <Channels />}
         <div
           className="flex items-center text-lg gap-4 hover:cursor-pointer hover:bg-blue-600 rounded-md p-2"

@@ -3,7 +3,7 @@ import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
 type IconProps = {
   name: IconProp;
-  position?: "top" | "left";
+  position?: "top" | "left" | "right" | "center";
   size?: "xs" | "sm" | "md" | "lg" | "xl";
   label?: string;
   onClick?: () => void;
@@ -16,6 +16,9 @@ function IconBox({ name, size, label, position, onClick }: IconProps) {
   const positions = {
     top: "flex-col",
     left: "flex-row",
+    right: "flex-row-reverse",
+    center: "flex-row",
+    bottom: "flex-col-reverse",
   };
 
   const sizes = {
