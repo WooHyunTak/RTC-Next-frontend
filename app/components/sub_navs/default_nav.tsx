@@ -11,14 +11,17 @@ function DefaultNav() {
   const [isDirectMessagesOpen, setIsDirectMessagesOpen] = useState(true);
   const [isCreateChannelOpen, setIsCreateChannelOpen] = useState(false);
 
+  // 채널 목록 열기
   const handleChannelsOpen = () => {
     setIsChannelsOpen(!isChannelsOpen);
   };
 
+  // 다이렉트 메시지 목록 열기
   const handleDirectMessagesOpen = () => {
     setIsDirectMessagesOpen(!isDirectMessagesOpen);
   };
 
+  // 채널 생성 모달 열기
   const openCreateChannelModal = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
@@ -44,7 +47,9 @@ function DefaultNav() {
           </div>
           <Button size="sm" onClick={openCreateChannelModal}>+</Button>
         </div>
+        {/* 채널 생성 모달 */}
         {isCreateChannelOpen && <CreateChannelModal openState={setIsCreateChannelOpen} modalType="create" />}
+        {/* 채널 목록 컴포넌트 */}
         {isChannelsOpen && <Channels />}
         <div
           className="flex items-center text-lg gap-4 hover:cursor-pointer hover:bg-blue-600 rounded-md p-2"
@@ -59,6 +64,7 @@ function DefaultNav() {
           </div>
           <span>Direct messages</span>
         </div>
+        {/* 다이렉트 메시지 컴포넌트 */}
         {isDirectMessagesOpen && <DirectMessages />}
       </div>
     </div>
