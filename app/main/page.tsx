@@ -6,7 +6,7 @@ import DirectMessages from "../components/sub_navs/Direct_messages";
 import { useState } from "react";
 import Header from "../components/Header";
 import useAuth from "../context/AuthContext";
-import DefaultMain from "../components/main_contents/Default";
+import DefaultMain from "../components/main_contents/users/Default";
 interface NavType {
   nav: "default" | "sub" | "none";
 }
