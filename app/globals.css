@@ -61,6 +61,16 @@ ul, ol {
   --bg-secondary-600: #66b3ff;
   --bg-secondary-700: #3399ff;
   --bg-secondary-800: #007bff;
+
+  --bg-gray-100: #f0f0f0;
+  --bg-gray-200: #e0e0e0;
+  --bg-gray-300: #d0d0d0;
+  --bg-gray-400: #c0c0c0;
+  --bg-gray-500: #b0b0b0;
+  --bg-gray-600: #a0a0a0;
+  --bg-gray-700: #909090;
+  --bg-gray-800: #808080;
+  --bg-gray-900: #707070;
   
   --color-error-100: #fef2f2;
   --color-error-500: #ef4444;

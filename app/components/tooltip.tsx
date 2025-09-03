@@ -87,7 +87,7 @@ function Tooltip({ text, position: initialPosition, children }: TooltipProps) {
             {isTooltipVisible && (
                 <div
                     ref={tooltipRef}
-                    className={`absolute ${getTooltipPosition()} z-50 px-2 py-1 text-sm text-white bg-gray-900 rounded-md whitespace-nowrap transition-all duration-200 ${isTooltipVisible ? 'opacity-100' : 'opacity-0'}`}
+                    className={` absolute ${getTooltipPosition()} z-50 px-2 py-1 text-sm text-white bg-gray-900 rounded-md whitespace-nowrap transition-all duration-200 ${isTooltipVisible ? 'opacity-100' : 'opacity-0'}`}
                 >
                     {text}
                     <div className={`absolute w-2 h-2 bg-gray-900 transform rotate-45 

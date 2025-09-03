@@ -37,7 +37,7 @@ function ReceivedFriendItem(data: ReceivedFriendItem) {
     }
 
     return (
-        <div className="flex w-full p-2 gap-2 items-center justify-between hover:bg-blue-700 border-b border-gray-500 hover:rounded-[10px] ">
+        <div className="flex w-full p-2 gap-2 items-center justify-between hover:bg-gray-700 border-b border-gray-500 hover:rounded-[10px] ">
             <Image
                 src={from_user?.profile ?? defaultProfileImage}
                 alt={from_user?.name}
@@ -45,10 +45,10 @@ function ReceivedFriendItem(data: ReceivedFriendItem) {
                 height={30}
             />
             <span className="flex-1 text-white">{from_user?.name}</span>
-            <div className="flex w-[32px] h-[32px] bg-blue-800 rounded-full items-center justify-center hover:cursor-pointer" onClick={handleAcceptFriendRequest}>
+            <div className="flex w-[32px] h-[32px] bg-gray-800 rounded-full items-center justify-center hover:cursor-pointer" onClick={handleAcceptFriendRequest}>
                 <FontAwesomeIcon icon={faCheck} className="text-white" />
             </div>
-            <div className="flex w-[32px] h-[32px] bg-blue-800 rounded-full items-center justify-center hover:cursor-pointer" onClick={handleRejectFriendRequest}>
+            <div className="flex w-[32px] h-[32px] bg-gray-800 rounded-full items-center justify-center hover:cursor-pointer" onClick={handleRejectFriendRequest}>
                 <FontAwesomeIcon icon={faXmark} className="text-white" />
             </div>
         </div>
@@ -65,7 +65,7 @@ function ReceivedFriendRequests() {
     }
 
     return (
-        <div className="flex flex-col w-full h-full bg-blue-800">
+        <div className="flex flex-col w-full h-full bg-gray-800">
             {requestFriendData?.list?.length > 0 &&
                 requestFriendData?.list?.map((item) => (
                     <ReceivedFriendItem key={item.from_user.id} {...item} />

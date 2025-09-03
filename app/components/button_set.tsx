@@ -7,6 +7,7 @@ interface ButtonSetProps {
   size?: "sm" | "md" | "lg";
   clicked?: boolean;
   handleClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
+  className?: string;
 }
 
 type Color = "blue" | "red" | "green";
@@ -18,6 +19,7 @@ function ButtonSet({
   handleClick,  
   size = "md",
   clicked = true,
+  className = "",
 }: ButtonSetProps) {
   const sizes = {
     xs: "text-xs",
@@ -37,7 +39,7 @@ function ButtonSet({
 
   return (
     <div
-      className={`flex ${colors[color]} ${clicked ? "hover:cursor-pointer hover:bg-blue-600" : ""} items-center justify-between rounded-md gap-2 p-2`}
+      className={`flex ${colors[color]} ${clicked ? "hover:cursor-pointer" : ""} items-center justify-between rounded-md gap-2 p-2 ${className}`}
       onClick={handleClick}
     >
       <button className={`rounded-md flex items-center gap-2`} disabled={!clicked}>
