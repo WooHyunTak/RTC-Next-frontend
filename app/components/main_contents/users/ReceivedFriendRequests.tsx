@@ -14,12 +14,12 @@ interface ReceivedFriendItem {
     status: string;
 }
 
-interface ReceivedFriendResponse {
+interface ListResponse {
     message: string;
     list: ReceivedFriendItem[];
 }
 
-function FriendItem(data: ReceivedFriendItem) {
+function ReceivedFriendItem(data: ReceivedFriendItem) {
     const { from_user } = data;
     const defaultProfileImage = "/images/ic_profile.png";
     const queryClient = useQueryClient();
@@ -53,12 +53,12 @@ function FriendItem(data: ReceivedFriendItem) {
             </div>
         </div>
     );
-  }
+}
 
 function ReceivedFriendRequests() {
     const queryClient = useQueryClient();
 
-    const requestFriendData: ReceivedFriendResponse | undefined = queryClient.getQueryData(["receivedFriend"]);
+    const requestFriendData: ListResponse | undefined = queryClient.getQueryData(["receivedFriend"]);
 
     if (!requestFriendData) {
         return null;
@@ -68,7 +68,7 @@ function ReceivedFriendRequests() {
         <div className="flex flex-col w-full h-full bg-blue-800">
             {requestFriendData?.list?.length > 0 &&
                 requestFriendData?.list?.map((item) => (
-                    <FriendItem key={item.from_user.id} {...item} />
+                    <ReceivedFriendItem key={item.from_user.id} {...item} />
                 ))
             }
         </div>  

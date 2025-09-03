@@ -6,13 +6,14 @@ import RequestFriendModal from "../../users/RequestFriendModal";
 import { useQuery } from "@tanstack/react-query";
 import usersApi from "@/app/api/users";
 import ReceivedFriendRequests from "./ReceivedFriendRequests";
+import FriendList from "./FriendList";
 
 interface ContentItemState {
-  status: "friend" | "received-friend-request" | "request-friend";
+  status: "friendList" | "received-friend-request" | "request-friend";
 }
 
 function DefaultMain() {
-  const [itemState, setItemState] = useState<ContentItemState>({status: "friend"})
+  const [itemState, setItemState] = useState<ContentItemState>({status: "friendList"})
   const [isOpenFindUserModal, setIsOpenFindUserModal] = useState(false);
 
   const {data: requestFriendData} = useQuery({
@@ -31,7 +32,7 @@ function DefaultMain() {
             <div className="flex w-ful gap-2">
                 <ButtonSet icon={faUser} size="sm" label="친구" clicked={false} />
                 <Tooltip text="모든 친구 목록을 보여줍니다" position="bottom">
-                  <ButtonSet icon={faUsers} size="sm" label="모두"  />
+                  <ButtonSet icon={faUsers} size="sm" label="모두" handleClick={() => {changeItemState("friendList")}} />
                 </Tooltip>
                 <Tooltip text="사용자를 검색합니다" position="bottom">
                   <ButtonSet handleClick={() => {setIsOpenFindUserModal(true)}} icon={faSearch} size="sm" label="친구 추가하기" />
@@ -43,7 +44,7 @@ function DefaultMain() {
                 )}
             </div>
         </div>
-        {/* {itemState.status == "friend" && <Friends />} */}
+        {itemState.status == "friendList" && <FriendList />}
         {itemState.status == "received-friend-request" && <ReceivedFriendRequests />}
       </div>
       {isOpenFindUserModal && <RequestFriendModal openState={setIsOpenFindUserModal} />}

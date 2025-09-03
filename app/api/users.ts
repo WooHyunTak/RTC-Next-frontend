@@ -19,6 +19,11 @@ interface AcceptAndRejectFriendAnswer {
   RequestUserId: number;
 }
 
+interface RequestFriendList {
+  nextCursor: string;
+  limit: number;
+}
+
 //회원가입
 const signup = async (request: SignupRequest) => {
   const response = await axiosClient.post("/api/users/signup/", request);
@@ -67,6 +72,12 @@ const rejectFriendRequest = async (request: AcceptAndRejectFriendAnswer) => {
   return response.data;
 };
 
+// 전체 친구 목록 조회
+const getFriendList = async (request : RequestFriendList) => {
+  const response = await axiosClient.get("/api/users/my-friends/", {params: request});
+  return response.data;
+};
+
 export default { signup,
     login,
     logout,
@@ -75,4 +86,5 @@ export default { signup,
     getReceivedFriendRequests,
     acceptFriendRequest,
     rejectFriendRequest,
+    getFriendList,
 };
