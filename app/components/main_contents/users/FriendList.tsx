@@ -19,7 +19,7 @@ function Friend(data: FriendItem) {
     const defaultProfileImage = "/images/ic_profile.png";
 
     return (
-        <div className="flex w-full p-2 gap-2 items-center justify-between hover:bg-blue-700 border-b border-gray-500 hover:rounded-[10px] ">
+        <div className="flex w-full p-2 gap-2 items-center justify-between border-b border-gray-500 hover:rounded-[10px] ">
             <div className="flex relative">
                 <Image
                     src={profile ?? defaultProfileImage}
@@ -44,12 +44,12 @@ function Friend(data: FriendItem) {
                 <span className="text-white">{isOnline ? "온라인" : "오프라인"}</span>
             </div>
             <Tooltip text="메시지 보내기" position="top">
-                <div className="flex w-[32px] h-[32px] bg-blue-800 rounded-full items-center justify-center">
+                <div className="flex w-[32px] h-[32px] bg-blue-700 rounded-full items-center justify-center hover:bg-blue-800 hover:cursor-pointer">
                     <FontAwesomeIcon icon={faMessage} className="text-white" /> 
                 </div>
             </Tooltip>
             <Tooltip text="더보기" position="top">
-                <div className="flex w-[32px] h-[32px] bg-blue-800 rounded-full items-center justify-center">
+                <div className="flex w-[32px] h-[32px] bg-blue-700 rounded-full items-center justify-center hover:bg-blue-800 hover:cursor-pointer">
                     <FontAwesomeIcon icon={faEllipsisVertical} className="text-white" />
                 </div>
             </Tooltip>

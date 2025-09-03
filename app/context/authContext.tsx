@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import usersApi from "../api/users";
 
@@ -36,13 +36,14 @@ const AuthContext = createContext<AuthContextType>({
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [isPending, setIsPending] = useState(false);
+  // const [websocket, setWebsocket] = useState<WebSocket | null>(null);
+  const websocketRef = useRef<WebSocket | null>(null);
 
   const getUser = async () => {
     try {
       setIsPending(true);
       const response = await usersApi.getUser();
       setUser(response);
-      connectWebSocket();
     } catch (error) {
       console.error(error);
     } finally {
@@ -57,6 +58,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const logout = async () => {
     await usersApi.logout();
     setUser(null);
+    websocketRef.current?.close();
+    websocketRef.current = null;
   };
 
   const login = async (email: string, password: string) => {
@@ -65,31 +68,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         loginEmail: email,
         loginPassword: password,
       });
-
-      // connectWebSocket();
       setUser(response);
     } catch (error) {
       console.log(error);
       throw error;
     }
-  };
-
-  const connectWebSocket = () => {
-    const websocket = new WebSocket(
-      `${process.env.NEXT_PUBLIC_WEBSOCKET_URL}:${process.env.NEXT_PUBLIC_WEBSOCKET_PORT}/ws/users/`
-    );
-
-    websocket.onopen = () => {
-      console.log("WebSocket connected");
-    };
-
-    websocket.onmessage = (event) => {
-      console.log(event.data);
-    };
-
-    websocket.onclose = () => {
-      console.log("WebSocket disconnected");
-    };
   };
 
   const register = async (
@@ -104,6 +87,37 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     });
     setUser(response.data);
   };
+
+  useEffect(() => {
+    if (!user) return;
+
+    if (websocketRef.current && (websocketRef.current.readyState === WebSocket.OPEN || websocketRef.current.readyState === WebSocket.CONNECTING)) return;
+
+    const ws = new WebSocket(
+      `${process.env.NEXT_PUBLIC_WEBSOCKET_URL}:${process.env.NEXT_PUBLIC_WEBSOCKET_PORT}/ws/users/`
+    );
+
+    websocketRef.current = ws;
+
+    ws.onopen = () => {
+      console.log("WebSocket connected");
+    };
+
+    ws.onmessage = (event) => {
+      console.log(event.data);
+    };
+
+    ws.onclose = () => {
+      console.log("WebSocket disconnected");
+    };
+
+    return () => {
+      ws.close();
+      if (websocketRef.current === ws) {
+        websocketRef.current = null;
+      }
+    };
+  }, [user]);
 
   return (
     <AuthContext.Provider
