@@ -1,8 +1,8 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircle } from "@fortawesome/free-solid-svg-icons";
+import { faCircle, faSearch } from "@fortawesome/free-solid-svg-icons";
 import friends from "@/app/data/friends";
 import Image from "next/image";
-
+import {Resizable} from "re-resizable";
 interface Friend {
   id: number;
   name: string;
@@ -42,11 +42,33 @@ function FriendItem({ friend }: { friend: Friend }) {
 }
 function DirectMessages() {
   return (
-    <div className="flex flex-col justify-center gap-2">
-      {friends.map((friend) => (
-        <FriendItem key={friend.id} friend={friend} />
-      ))}
-    </div>
+    <Resizable 
+      className="flex w-[300px] h-full flex-col gap-2 bg-blue-800 text-white p-2 overflow-y-auto"
+      defaultSize={{
+        width: 300,
+        height: "100%",
+      }}
+      minWidth={250}
+      maxWidth={400}
+      enable={{
+        right: true,
+      }}
+    >
+      <div className="flex w-full flex-col">
+        <div className="flex items-start w-full flex-col gap-2 text-lg rounded-md p-2">
+          <span>Direct messages</span>
+          <div className="flex items-center gap-2 w-full bg-blue-900 rounded-md p-2">
+            <FontAwesomeIcon icon={faSearch} />
+            <input type="text" placeholder="DM Search" className="bg-transparent text-white pl-2 rounded-md w-full" />
+          </div>
+        </div>
+      </div>
+      <div className="flex w-full flex-col overflow-y-auto">
+          {friends.map((friend) => (
+            <FriendItem key={friend.id} friend={friend} />
+          ))}
+      </div>
+    </Resizable>
   );
 }
 

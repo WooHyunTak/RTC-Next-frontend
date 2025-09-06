@@ -5,6 +5,7 @@ import Channels from "./Channels";
 import DirectMessages from "./Direct_messages";
 import Button from "../Button";
 import CreateChannelModal from "../channels/CreateChannelModal";
+import {Resizable} from "re-resizable";
 
 function DefaultNav() {
   const [isChannelsOpen, setIsChannelsOpen] = useState(true);
@@ -29,7 +30,18 @@ function DefaultNav() {
   };
 
   return (
-    <div className="flex w-[300px] h-full flex-col gap-6 bg-blue-800 text-white p-2 overflow-y-auto">
+    <Resizable 
+      className="flex w-[300px] h-full flex-col gap-6 bg-blue-800 text-white p-2 overflow-y-auto"
+      defaultSize={{
+        width: 300,
+        height: "100%",
+      }}
+      minWidth={250}
+      maxWidth={400}
+      enable={{
+        right: true,
+      }}
+    >
       <div className="flex w-full flex-col">
         <div
           className="flex items-center justify-between text-lg hover:cursor-pointer hover:bg-blue-600 rounded-md p-2"
@@ -51,23 +63,8 @@ function DefaultNav() {
         {isCreateChannelOpen && <CreateChannelModal openState={setIsCreateChannelOpen} modalType="create" />}
         {/* 채널 목록 컴포넌트 */}
         {isChannelsOpen && <Channels />}
-        <div
-          className="flex items-center text-lg gap-4 hover:cursor-pointer hover:bg-blue-600 rounded-md p-2"
-          onClick={handleDirectMessagesOpen}
-        >
-          <div className="flex items-center justify-center w-4 h-4">
-            {isDirectMessagesOpen ? (
-              <FontAwesomeIcon icon={faCaretDown} />
-            ) : (
-              <FontAwesomeIcon icon={faCaretRight} />
-            )}
-          </div>
-          <span>Direct messages</span>
-        </div>
-        {/* 다이렉트 메시지 컴포넌트 */}
-        {isDirectMessagesOpen && <DirectMessages />}
       </div>
-    </div>
+    </Resizable>
   );
 }
 
