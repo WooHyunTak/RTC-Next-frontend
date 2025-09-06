@@ -42,18 +42,7 @@ function FriendItem({ friend }: { friend: Friend }) {
 }
 function DirectMessages() {
   return (
-    <Resizable 
-      className="flex w-[300px] h-full flex-col gap-2 bg-blue-800 text-white p-2 overflow-y-auto rounded-l-md border border-blue-900"
-      defaultSize={{
-        width: 300,
-        height: "100%",
-      }}
-      minWidth={250}
-      maxWidth={400}
-      enable={{
-        right: true,
-      }}
-    >
+    <>
       <div className="flex w-full flex-col">
         <div className="flex items-start w-full flex-col gap-2 text-lg rounded-md p-2">
           <span>Direct messages</span>
@@ -68,7 +57,7 @@ function DirectMessages() {
             <FriendItem key={friend.id} friend={friend} />
           ))}
       </div>
-    </Resizable>
+    </>
   );
 }
 
