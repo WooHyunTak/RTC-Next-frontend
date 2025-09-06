@@ -1,6 +1,8 @@
 import ButtonSet from "../../Button_set";
 import { faUser, faUsers, faSearch, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import Tooltip from "../../Tooltip";
+import { useQuery } from "@tanstack/react-query";
+import usersApi from "@/app/api/users";
 
 interface ContentItemState {
   status: "friendList" | "received-friend-request" | "request-friend";
@@ -9,10 +11,15 @@ interface ContentItemState {
 interface ContentHeaderProps {
   handleChangeItemState: (status: ContentItemState["status"]) => void;
   setIsOpenFindUserModal: (value: boolean) => void;
-  requestFriendData: any;
 }
 
-function ContentHeader({ handleChangeItemState, setIsOpenFindUserModal, requestFriendData }: ContentHeaderProps) {
+function ContentHeader({ handleChangeItemState, setIsOpenFindUserModal }: ContentHeaderProps) {
+
+  const {data: requestFriendData} = useQuery({
+    queryKey: ["receivedFriend"],
+    queryFn: () => usersApi.getReceivedFriendRequests(),
+  });
+
 
   return (
     <div className="flex w-full justify-between bg-gray-800 pt-4 pb-2">
