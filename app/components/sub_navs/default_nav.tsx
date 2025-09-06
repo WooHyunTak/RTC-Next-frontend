@@ -31,7 +31,7 @@ function DefaultNav() {
 
   return (
     <Resizable 
-      className="flex w-[300px] h-full flex-col gap-6 bg-blue-800 text-white p-2 overflow-y-auto"
+      className="flex w-[300px] h-full flex-col gap-6 bg-blue-800 text-white p-2 rounded-l-md overflow-y-auto border border-blue-900"
       defaultSize={{
         width: 300,
         height: "100%",

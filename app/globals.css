@@ -71,6 +71,17 @@ ul, ol {
   --bg-gray-700: #909090;
   --bg-gray-800: #808080;
   --bg-gray-900: #707070;
+
+  --border-blue-100: #e6f2ff;
+  --border-blue-200: #cce5ff;
+  --border-blue-300: #b3d9ff;
+  --border-blue-400: #99ccff;
+  --border-blue-500: #66b3ff;
+  --border-blue-600: #3399ff;
+  --border-blue-700: #007bff;
+  --border-blue-800: #0066d9;
+  --border-blue-900: #0055c9;
+  
   
   --color-error-100: #fef2f2;
   --color-error-500: #ef4444;

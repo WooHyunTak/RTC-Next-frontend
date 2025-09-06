@@ -43,7 +43,7 @@ function FriendItem({ friend }: { friend: Friend }) {
 function DirectMessages() {
   return (
     <Resizable 
-      className="flex w-[300px] h-full flex-col gap-2 bg-blue-800 text-white p-2 overflow-y-auto"
+      className="flex w-[300px] h-full flex-col gap-2 bg-blue-800 text-white p-2 overflow-y-auto rounded-l-md border border-blue-900"
       defaultSize={{
         width: 300,
         height: "100%",

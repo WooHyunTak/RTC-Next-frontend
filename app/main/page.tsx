@@ -15,7 +15,7 @@ function Main() {
   return (
     <>
       <Header />
-      <div className="flex h-full w-full overflow-hidden">
+      <div className="flex h-full w-full overflow-hidden bg-blue-700">
         <Nav />
         {subnav === "default" ? <DefaultNav /> : <DirectMessages />}
         {main === "default" ? <DefaultMain /> : ""}
