@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircle, faMessage } from "@fortawesome/free-solid-svg-icons";
 import Tooltip from "../../Tooltip";
 import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
+import { useContentsStore } from "@/app/store/contents";
 
 interface FriendItem {
     id: number;
@@ -17,6 +18,12 @@ interface FriendItem {
 function Friend(data: FriendItem) {
     const { name, profile, isOnline } = data;
     const defaultProfileImage = "/images/ic_profile.png";
+
+    const { setMain } = useContentsStore(); 
+
+    const handleMessage = () => {
+        setMain("message");
+    }
 
     return (
         <div className="flex w-full p-2 gap-2 items-center hover:bg-gray-700 hover:border-b-0 justify-between border-b border-gray-500 hover:rounded-[10px] ">
@@ -44,7 +51,10 @@ function Friend(data: FriendItem) {
                 <span className="text-white">{isOnline ? "온라인" : "오프라인"}</span>
             </div>
             <Tooltip text="메시지 보내기" position="top">
-                <div className="flex w-[32px] h-[32px] bg-gray-800 rounded-full items-center justify-center hover:bg-gray-900 hover:cursor-pointer">
+                <div 
+                    className="flex w-[32px] h-[32px] bg-gray-800 rounded-full items-center justify-center hover:bg-gray-900 hover:cursor-pointer"
+                    onClick={handleMessage}
+                >
                     <FontAwesomeIcon icon={faMessage} className="text-white" /> 
                 </div>
             </Tooltip>

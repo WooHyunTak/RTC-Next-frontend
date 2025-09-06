@@ -3,7 +3,7 @@
 import { create } from "zustand";
 
 export type NavType = "default" | "sub" | "none";
-export type MainType = "default" | "sub" | "none";
+export type MainType = "default" | "sub" | "message" | "none";
 
 interface ContentsState {
   subnav: NavType;

@@ -8,6 +8,8 @@ import Header from "../components/Header";
 import useAuth from "../context/AuthContext";
 import DefaultMain from "../components/main_contents/users/Default";
 import { Resizable } from "re-resizable";
+import DirectMessage from "../components/main_contents/messages/DirectMessage";
+
 function Main() {
   const { user } = useAuth();
   const subnav = useContentsStore((s) => s.subnav);
@@ -33,6 +35,7 @@ function Main() {
           {subnav === "default" ? <DefaultNav /> : <DirectMessages />}
         </Resizable>
         {main === "default" ? <DefaultMain /> : ""}
+        {main === "message" ? <DirectMessage /> : ""}
       </div>
     </>
   );
