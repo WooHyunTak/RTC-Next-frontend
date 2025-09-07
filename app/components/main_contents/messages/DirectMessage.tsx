@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircle, faMessage, faFile } from "@fortawesome/free-solid-svg-icons";
-import Quill from "../../Quill";
+import { SimpleEditor } from "@/components/tiptap-templates/simple/simple-editor"
 
 interface DirectMessageProps {
   friend: {
@@ -72,7 +72,7 @@ function DirectMessage() {
         </div>
       </div>      
       <div className="flex-1 border-gray-500 w-full border-t border-b"></div>
-      <Quill />
+      <SimpleEditor />
     </div>
   );
 }
