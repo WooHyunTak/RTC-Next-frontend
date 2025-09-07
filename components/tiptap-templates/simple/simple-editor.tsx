@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { EditorContent, EditorContext, useEditor } from "@tiptap/react"
+import { EditorContent, EditorContext, Editor, useEditor } from "@tiptap/react"
 
 // --- Tiptap Core Extensions ---
 import { StarterKit } from "@tiptap/starter-kit"
@@ -72,6 +72,8 @@ import { handleImageUpload, MAX_FILE_SIZE } from "@/lib/tiptap-utils"
 
 // --- Styles ---
 import "@/components/tiptap-templates/simple/simple-editor.scss"
+import ButtonSet from "@/app/components/Button_set";
+import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 
 const MainToolbarContent = ({
   onHighlighterClick,
@@ -181,14 +183,14 @@ const MobileToolbarContent = ({
   </>
 )
 
-export function SimpleEditor() {
+export function SimpleEditor(
+  {handleSubmit, onReady }: { handleSubmit: (editor: Editor) => void, onReady?: (editor: Editor) => void }) {
   const isMobile = useIsMobile()
   const { height } = useWindowSize()
   const [mobileView, setMobileView] = React.useState<
     "main" | "highlighter" | "link"
   >("main")
   const toolbarRef = React.useRef<HTMLDivElement>(null)
-
   const editor = useEditor({
     immediatelyRender: false,
     shouldRerenderOnTransaction: false,
@@ -234,14 +236,27 @@ export function SimpleEditor() {
     overlayHeight: toolbarRef.current?.getBoundingClientRect().height ?? 0,
   })
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault()
+      if (editor) {
+        handleSubmit(editor)
+      }
+    }
+  }
+
   React.useEffect(() => {
     if (!isMobile && mobileView !== "main") {
       setMobileView("main")
     }
-  }, [isMobile, mobileView])
+    if (editor && onReady) {
+      onReady(editor)
+    }
+  }, [isMobile, mobileView, editor, onReady])
 
   return (
-    <div className="simple-editor-wrapper rounded-lg">
+    <>
+    <div className="simple-editor-wrapper rounded-lg" onKeyDown={handleKeyDown}>
       <EditorContext.Provider value={{ editor }}>
         <Toolbar
           ref={toolbarRef}
@@ -274,5 +289,7 @@ export function SimpleEditor() {
         />
       </EditorContext.Provider>
     </div>
+    
+    </>
   )
 }

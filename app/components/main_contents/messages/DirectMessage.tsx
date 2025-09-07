@@ -1,13 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircle, faMessage, faFile, faPaperclip, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { SimpleEditor } from "@/components/tiptap-templates/simple/simple-editor"
 import { Resizable } from "re-resizable";
 import ButtonSet from "@/app/components/Button_set";
-
+import { Editor } from "@tiptap/react";
 interface DirectMessageProps {
   friend: {
     id: number;
@@ -28,6 +28,14 @@ function DirectMessage() {
   const [tabState, setTabState] = useState<string>("messages");
 
   const defaultProfileImage = "/images/ic_profile.png";
+  const editorRef = useRef<Editor | null>(null)
+  
+  const handleSubmit = (editor: Editor) => {
+    const htmlContent = editor.getHTML()
+    console.log(htmlContent)
+    editor.commands.setContent("")
+    editor.commands.focus()
+  }
 
   return (
     <div className="flex justify-between flex-col w-full h-full bg-gray-800 p-2">
@@ -74,7 +82,7 @@ function DirectMessage() {
         </div>
       </div>      
       <div className="flex-1 w-full"></div>
-      <div className="flex flex-col gap-2 rounded-lg border border-gray-500">
+      <div className="flex flex-col rounded-lg border border-gray-500">
         <Resizable
           className="w-full"
           defaultSize={{
@@ -87,10 +95,23 @@ function DirectMessage() {
             top: true,
           }}
         >
-          <SimpleEditor />
+          <SimpleEditor handleSubmit={handleSubmit} onReady={(editor) => {
+            if (editorRef.current === null) {
+              editorRef.current = editor;
+            }
+          }} />
         </Resizable>
         <div className="flex justify-end items-center p-2">
-            <ButtonSet icon={faPaperPlane } size="sm" label="전송" clicked={false} className="bg-gray-700 hover:bg-gray-900" />
+            <ButtonSet 
+              icon={faPaperPlane}
+              size="sm" label="전송" 
+              clicked={false} 
+              className="bg-gray-700 hover:bg-gray-900" 
+              handleClick={() => {
+                if (editorRef.current) {
+                  handleSubmit(editorRef.current)
+                }
+            }}/>
         </div>
       </div>
     </div>
