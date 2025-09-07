@@ -85,9 +85,7 @@ function DirectMessage() {
           </div>
         </div>
       </div>      
-      <div className="flex-1 w-full">
-        <Messages messages={messages} />
-      </div>
+      <Messages messages={messages} />
       <div className="flex flex-col rounded-lg border border-gray-500">
         <Resizable
           className="w-full"

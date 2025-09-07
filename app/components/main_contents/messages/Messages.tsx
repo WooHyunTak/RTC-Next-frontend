@@ -22,7 +22,7 @@ function Messages({ messages }: MessageProps) {
   const defaultProfileImage = "/images/ic_profile.png";
   
   return (
-    <div className="flex flex-col overflow-y-auto ">
+    <div className="flex flex-1 min-h-0 flex-col overflow-y-auto overflow-x-hidden">
       {messages.map((message, index) => {
         const prevDate = messages[index - 1]?.createdAt.getDate();
         const currentDate = message.createdAt.getDate();
