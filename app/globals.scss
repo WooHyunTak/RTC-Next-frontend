@@ -84,10 +84,14 @@ ul, ol {
   --border-blue-800: #0066d9;
   --border-blue-900: #0055c9;
   
-  
-  --color-error-100: #fef2f2;
-  --color-error-500: #ef4444;
-  --color-error-600: #b91c1c;
+  --color-text-primary: #000000;
+  --color-text-secondary: #666666;
+  --color-text-tertiary: #999999;
+  --color-text-quaternary: #cccccc;
+  --color-text-quinary: #ffffff;
+  --color-text-info: #007bff;
+  --color-text-success: #10b981;
+  --color-text-error: #ef4444;
 }
 
 @theme inline {

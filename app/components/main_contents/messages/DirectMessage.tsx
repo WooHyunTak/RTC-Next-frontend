@@ -8,6 +8,10 @@ import { SimpleEditor } from "@/components/tiptap-templates/simple/simple-editor
 import { Resizable } from "re-resizable";
 import ButtonSet from "@/app/components/Button_set";
 import { Editor } from "@tiptap/react";
+import messages from "@/app/data/messages";
+import Messages from "./Messages";
+import formatDate from "@/app/utils/formatDate";
+
 interface DirectMessageProps {
   friend: {
     id: number;
@@ -38,7 +42,7 @@ function DirectMessage() {
   }
 
   return (
-    <div className="flex justify-between flex-col w-full h-full bg-gray-800 p-2">
+    <div className="flex justify-between gap-2 flex-col w-full h-full bg-gray-800 p-2">
       <div>
         <div className="flex items-center gap-2 w-full p-2">
           <div className="flex relative">
@@ -81,7 +85,9 @@ function DirectMessage() {
           </div>
         </div>
       </div>      
-      <div className="flex-1 w-full"></div>
+      <div className="flex-1 w-full">
+        <Messages messages={messages} />
+      </div>
       <div className="flex flex-col rounded-lg border border-gray-500">
         <Resizable
           className="w-full"
