@@ -84,7 +84,7 @@ const MainToolbarContent = ({
 }) => {
   return (
     <>
-      <Spacer />
+      {/* <Spacer /> */} {/* 중앙 정렬을 위하여 존재하는 공백 */}
 
       <ToolbarGroup>
         <UndoRedoButton action="undo" />
@@ -241,7 +241,7 @@ export function SimpleEditor() {
   }, [isMobile, mobileView])
 
   return (
-    <div className="simple-editor-wrapper">
+    <div className="simple-editor-wrapper rounded-lg">
       <EditorContext.Provider value={{ editor }}>
         <Toolbar
           ref={toolbarRef}

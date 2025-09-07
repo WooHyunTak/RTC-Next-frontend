@@ -3,8 +3,10 @@
 import Image from "next/image";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircle, faMessage, faFile } from "@fortawesome/free-solid-svg-icons";
+import { faCircle, faMessage, faFile, faPaperclip, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { SimpleEditor } from "@/components/tiptap-templates/simple/simple-editor"
+import { Resizable } from "re-resizable";
+import ButtonSet from "@/app/components/Button_set";
 
 interface DirectMessageProps {
   friend: {
@@ -71,8 +73,26 @@ function DirectMessage() {
           </div>
         </div>
       </div>      
-      <div className="flex-1 border-gray-500 w-full border-t border-b"></div>
-      <SimpleEditor />
+      <div className="flex-1 w-full"></div>
+      <div className="flex flex-col gap-2 rounded-lg border border-gray-500">
+        <Resizable
+          className="w-full"
+          defaultSize={{
+            // width: "100%",
+            height: "100px",
+          }}
+          minHeight={100}
+          maxHeight={400}
+          enable={{
+            top: true,
+          }}
+        >
+          <SimpleEditor />
+        </Resizable>
+        <div className="flex justify-end items-center p-2">
+            <ButtonSet icon={faPaperPlane } size="sm" label="전송" clicked={false} className="bg-gray-700 hover:bg-gray-900" />
+        </div>
+      </div>
     </div>
   );
 }
