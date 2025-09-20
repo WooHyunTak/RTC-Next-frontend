@@ -11,6 +11,7 @@ import { Editor } from "@tiptap/react";
 import messages from "@/app/data/messages";
 import Messages from "./Messages";
 import formatDate from "@/app/utils/formatDate";
+import { useWebsocketStore } from "@/app/store/websocketStore";
 
 interface DirectMessageProps {
   friend: {
@@ -22,6 +23,8 @@ interface DirectMessageProps {
 }
 
 function DirectMessage() {
+  const socket = useWebsocketStore((state) => state.socket);
+  const sendMessage = useWebsocketStore((state) => state.sendMessage);
   const { id, name, isOnline, profileImage } = {
     id: 1,
     name: "John Doe",
@@ -36,7 +39,9 @@ function DirectMessage() {
   
   const handleSubmit = (editor: Editor) => {
     const htmlContent = editor.getHTML()
-    console.log(htmlContent)
+    sendMessage(JSON.stringify({
+      message: htmlContent
+    }))
     editor.commands.setContent("")
     editor.commands.focus()
   }

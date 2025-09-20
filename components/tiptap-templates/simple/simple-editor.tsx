@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import { EditorContent, EditorContext, Editor, useEditor } from "@tiptap/react"
+import { Extension } from "@tiptap/core"
 
 // --- Tiptap Core Extensions ---
 import { StarterKit } from "@tiptap/starter-kit"
@@ -191,6 +192,26 @@ export function SimpleEditor(
     "main" | "highlighter" | "link"
   >("main")
   const toolbarRef = React.useRef<HTMLDivElement>(null)
+  const SubmitOnEnter = React.useMemo(() =>
+    Extension.create({
+      name: "submitOnEnter",
+      addOptions() {
+        return {
+          onSubmit: (editor: Editor) => {},
+        }
+      },
+      addKeyboardShortcuts() {
+        return {
+          Enter: () => {
+            if (this.editor.view.composing) return false
+            this.options.onSubmit(this.editor)
+            return true
+          },
+          "Shift-Enter": () => false,
+        }
+      },
+    })
+  , [])
   const editor = useEditor({
     immediatelyRender: false,
     shouldRerenderOnTransaction: false,
@@ -204,6 +225,7 @@ export function SimpleEditor(
       },
     },
     extensions: [
+      SubmitOnEnter.configure({ onSubmit: (ed: Editor) => handleSubmit(ed) }),
       StarterKit.configure({
         horizontalRule: false,
         link: {
@@ -236,15 +258,6 @@ export function SimpleEditor(
     overlayHeight: toolbarRef.current?.getBoundingClientRect().height ?? 0,
   })
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault()
-      if (editor) {
-        handleSubmit(editor)
-      }
-    }
-  }
-
   React.useEffect(() => {
     if (!isMobile && mobileView !== "main") {
       setMobileView("main")
@@ -256,7 +269,7 @@ export function SimpleEditor(
 
   return (
     <>
-    <div className="simple-editor-wrapper rounded-lg" onKeyDown={handleKeyDown}>
+    <div className="simple-editor-wrapper rounded-lg">
       <EditorContext.Provider value={{ editor }}>
         <Toolbar
           ref={toolbarRef}
