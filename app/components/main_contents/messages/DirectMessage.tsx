@@ -26,7 +26,7 @@ function DirectMessage() {
   const socket = useWebsocketStore((state) => state.socket);
   const sendMessage = useWebsocketStore((state) => state.sendMessage);
   const { id, name, isOnline, profileImage } = {
-    id: 1,
+    id: 2,
     name: "John Doe",
     isOnline: true,
     profileImage: null,
@@ -39,9 +39,12 @@ function DirectMessage() {
   
   const handleSubmit = (editor: Editor) => {
     const htmlContent = editor.getHTML()
-    sendMessage(JSON.stringify({
-      message: htmlContent
-    }))
+    const data = {
+      content: htmlContent,
+      toUserId: id,
+      sendChannelType: "direct"
+    }
+    sendMessage(JSON.stringify(data))
     editor.commands.setContent("")
     editor.commands.focus()
   }
