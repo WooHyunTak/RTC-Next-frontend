@@ -16,13 +16,20 @@ interface FriendItem {
 }
 
 function Friend(data: FriendItem) {
-    const { name, profile, isOnline } = data;
+    const { id, name, profile, isOnline } = data;
     const defaultProfileImage = "/images/ic_profile.png";
 
-    const { setMain } = useContentsStore(); 
+    const { setChannel } = useContentsStore(); 
 
     const handleMessage = () => {
-        setMain("message");
+        setChannel({
+            channelId: 0,
+            toUser: {
+                id: id,
+                name: name,
+                isOnline: isOnline,
+            },
+        });
     }
 
     return (

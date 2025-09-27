@@ -3,29 +3,25 @@
 import Image from "next/image";
 import { useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircle, faMessage, faFile, faPaperclip, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import { faCircle, faMessage, faFile, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { SimpleEditor } from "@/components/tiptap-templates/simple/simple-editor"
 import { Resizable } from "re-resizable";
 import ButtonSet from "@/app/components/Button_set";
 import { Editor } from "@tiptap/react";
 import Messages from "./Messages";
-import formatDate from "@/app/utils/formatDate";
 import { useWebsocketStore } from "@/app/store/websocketStore";
 import { useQuery } from "@tanstack/react-query";
 import { getMessagesByChannel } from "@/app/api/messages";
+import { ChannelState } from "@/app/store/contents";
 
-function DirectMessage() {
+function DirectMessage({ channel }: { channel: ChannelState }) {
   const sendMessage = useWebsocketStore((state) => state.sendMessage);
-  const { id, name, isOnline, profileImage } = {
-    id: 2,
-    name: "John Doe",
-    isOnline: true,
-    profileImage: null,
-  };
+  const { channelId, toUser } = channel;
+  const { id: toUserId,  name, isOnline, profileImage } = toUser;
 
   const { data: messages } = useQuery({
-    queryKey: ["messages", id],
-    queryFn: () => getMessagesByChannel(id),
+    queryKey: ["messages", channelId],
+    queryFn: () => getMessagesByChannel(channelId),
   });
 
   const [tabState, setTabState] = useState<string>("messages");
@@ -37,7 +33,7 @@ function DirectMessage() {
     const htmlContent = editor.getHTML()
     const data = {
       content: htmlContent,
-      toUserId: id,
+      toUserId: toUserId,
       sendChannelType: "direct"
     }
     sendMessage(JSON.stringify(data))
@@ -80,7 +76,7 @@ function DirectMessage() {
             {tabState === "messages" && <div className="absolute bottom-[-11px] w-full h-1 bg-blue-300"></div>}
           </div >
           <div 
-            className={`flex items-center justify-center gap-2 pl-2 pr-2 hover:cursor-pointer text-white relative ${tabState === "files" ? "text-white" : "text-gray-400"}`}
+            className={`flex items-center justify-center gap-2 pl-2 pr-2 hover:cursor-pointer relative ${tabState === "files" ? "text-white" : "text-gray-400"}`}
             onClick={() => setTabState("files")}
           >
             <FontAwesomeIcon icon={faFile} />

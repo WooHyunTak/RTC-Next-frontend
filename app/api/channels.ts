@@ -1,4 +1,5 @@
 import axiosClient from "./axios_client";
+import convertCase from "@/app/utils/convertCase";
 
 export interface CreateChannelRequest {
   name: string;
@@ -18,6 +19,18 @@ export interface ChannelResponse {
     type: string;
     createdAt: string;
     updatedAt: string;
+}
+
+export interface Friend {
+  id: number;
+  name: string;
+  isOnline: boolean;
+  profileImage?: string | null;
+}
+
+export interface DMChannelResponse {
+  id: number;
+  toUser: Friend;
 }
 
 export interface ChannelResponseList {
@@ -44,5 +57,10 @@ const updateChannel = async (data: UpdateChannelRequest) : Promise<ChannelRespon
   return response.data;
 };
 
+const getDMChannels = async () : Promise<DMChannelResponse[]> => {
+  const response = await axiosClient.get("/api/channels/direct-messages/");
+  return convertCase.convertCaseByArray(response.data) as DMChannelResponse[];
+};
 
-export default { getMyChannels, createChannel, updateChannel, getChannel };
+
+export default { getMyChannels, createChannel, updateChannel, getChannel, getDMChannels };

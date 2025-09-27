@@ -14,7 +14,8 @@ function Main() {
   const { user } = useAuth();
   const subnav = useContentsStore((s) => s.subnav);
   const main = useContentsStore((s) => s.main);
-
+  const channel = useContentsStore((s) => s.channel);
+  
   return (
     <>
       <Header />
@@ -35,7 +36,7 @@ function Main() {
           {subnav === "default" ? <DefaultNav /> : <DirectMessages />}
         </Resizable>
         {main === "default" ? <DefaultMain /> : ""}
-        {main === "message" ? <DirectMessage /> : ""}
+        {main === "message" ? <DirectMessage channel={channel}/> : ""}
       </div>
     </>
   );

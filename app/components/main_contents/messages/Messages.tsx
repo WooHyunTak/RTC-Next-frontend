@@ -19,7 +19,6 @@ interface MessageProps {
 }
 
 function Messages({ messages }: MessageProps) {
-  console.log(messages);
   const defaultProfileImage = "/images/ic_profile.png";
   
   return (

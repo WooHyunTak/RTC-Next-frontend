@@ -18,6 +18,6 @@ export const sendMessage = async (message: string) => {
 };
 
 export const getMessagesByChannel = async (channelId: number) : Promise<MessageItem[]> => {
-  const response = await axios_client.get(`/api/channels/15/messages/`);
+  const response = await axios_client.get(`/api/channels/${channelId}/messages/`);
   return convertCase.convertCaseByArray(response.data) as MessageItem[];
 };
