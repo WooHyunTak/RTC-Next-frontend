@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import usersApi from "@/app/api/users";
+import MessageModal from "../Message_modal";
 
 interface RequestFriendModalProps {
   openState: (value: boolean) => void;
@@ -13,20 +14,27 @@ interface RequestFriendModalProps {
 
 function RequestFriendModal({ openState }: RequestFriendModalProps) {
   const [userName, setUserName] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+  const [message, setMessage] = useState("");
+
+  const openMessageModal = (message: string) => {
+    setMessage(message);
+    setIsOpen(true);
+  };
 
   const handleSubmit = async () => {
     try {
       if (!validateForm()) return; // 요청 유효성 검사
       await usersApi.requestFriend({ userName: userName });
       openState(false);
-    } catch (error) {
-      console.error(error);
+    } catch (error: any) {
+      openMessageModal(error.response.data.message);
     }
   };
 
   const validateForm = () => {
     if (userName.length === 0) {
-      alert("사용자명을 입력해 주세요.");
+      openMessageModal("사용자명을 입력해 주세요.");
       return false;
     }
     return true;
@@ -44,6 +52,7 @@ function RequestFriendModal({ openState }: RequestFriendModalProps) {
           <Button variant="primary" size="md" onClick={() => {handleSubmit()}}>친구 요청 보내기</Button>
         </div>
       </div>
+      {isOpen && <MessageModal title="친구 요청 실패" message={message} handleClose={() => setIsOpen(false)} />}
     </ModalTemplate>
   );
 }
