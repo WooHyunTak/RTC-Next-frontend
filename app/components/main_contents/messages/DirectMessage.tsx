@@ -8,22 +8,13 @@ import { SimpleEditor } from "@/components/tiptap-templates/simple/simple-editor
 import { Resizable } from "re-resizable";
 import ButtonSet from "@/app/components/Button_set";
 import { Editor } from "@tiptap/react";
-import messages from "@/app/data/messages";
 import Messages from "./Messages";
 import formatDate from "@/app/utils/formatDate";
 import { useWebsocketStore } from "@/app/store/websocketStore";
-
-interface DirectMessageProps {
-  friend: {
-    id: number;
-    name: string;
-    isOnline: boolean;
-    profileImage: string | null;
-  }
-}
+import { useQuery } from "@tanstack/react-query";
+import { getMessagesByChannel } from "@/app/api/messages";
 
 function DirectMessage() {
-  const socket = useWebsocketStore((state) => state.socket);
   const sendMessage = useWebsocketStore((state) => state.sendMessage);
   const { id, name, isOnline, profileImage } = {
     id: 2,
@@ -31,6 +22,11 @@ function DirectMessage() {
     isOnline: true,
     profileImage: null,
   };
+
+  const { data: messages } = useQuery({
+    queryKey: ["messages", id],
+    queryFn: () => getMessagesByChannel(id),
+  });
 
   const [tabState, setTabState] = useState<string>("messages");
 
@@ -92,8 +88,8 @@ function DirectMessage() {
             {tabState === "files" && <div className="absolute bottom-[-11px] w-full h-1 bg-blue-300"></div>}
           </div>
         </div>
-      </div>      
-      <Messages messages={messages} />
+      </div>
+      {messages && <Messages messages={messages} />}
       <div className="flex flex-col rounded-lg border border-gray-500">
         <Resizable
           className="w-full"
