@@ -8,22 +8,23 @@ import { useContentsStore } from "@/app/store/contents";
 
 
 
-function FriendItem({ friend }: { friend: DMChannelResponse }) {
-  const { name, isOnline = false, profileImage } = friend.toUser;
+function FriendItem({ channel }: { channel: DMChannelResponse }) {
+  const { name, isOnline = false, profileImage } = channel.toUser;
 
   const defaultProfileImage = "/images/ic_profile.png";
 
   const { setChannel } = useContentsStore();
+  const storedChannel = useContentsStore((s) => s.channel);
 
   const handleClick = () => {
     setChannel({
-      channelId: friend.id,
-      toUser: friend.toUser,
+      channelId: channel.id,
+      toUser: channel.toUser,
     });
   };
 
   return (
-    <div className="flex items-center gap-4 hover:bg-blue-600 p-2 rounded-md" onClick={handleClick}>
+    <div className={`flex items-center gap-4 hover:bg-blue-600 p-2 rounded-md ${storedChannel.channelId === channel.id ? "bg-blue-600" : ""}`} onClick={handleClick}>
       <div className="flex items-center justify-center w-8 h-8 relative">
         <Image
           src={profileImage ?? defaultProfileImage}
@@ -71,7 +72,7 @@ function DirectMessages() {
       {dmChannels && dmChannels.length > 0 ? (
       <div className="flex w-full flex-col overflow-y-auto">
           {dmChannels?.map((item: DMChannelResponse) => (
-            <FriendItem key={item.id} friend={item}/>
+            <FriendItem key={item.id} channel={item}/>
           ))}
       </div>
       ) : (

@@ -19,7 +19,7 @@ function Friend(data: FriendItem) {
     const { id, name, profile, isOnline } = data;
     const defaultProfileImage = "/images/ic_profile.png";
 
-    const { setChannel } = useContentsStore(); 
+    const { setChannel, setSubnav } = useContentsStore(); 
 
     const handleMessage = () => {
         setChannel({
@@ -30,6 +30,7 @@ function Friend(data: FriendItem) {
                 isOnline: isOnline,
             },
         });
+        setSubnav("sub");
     }
 
     return (
