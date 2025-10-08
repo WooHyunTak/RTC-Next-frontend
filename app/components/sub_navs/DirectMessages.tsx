@@ -56,8 +56,6 @@ function DirectMessages() {
     queryFn: channelsApi.getDMChannels,
   });
 
-  const { setChannel } = useContentsStore();
-
   return (
     <>
       <div className="flex w-full flex-col">

@@ -1,6 +1,6 @@
 "use client";
 
-import InputSet from "@/app/components/Input_set";
+import InputSet from "@/app/components/InputSet";
 import Button from "@/app/components/Button";
 import Link from "next/link";
 import { useState } from "react";

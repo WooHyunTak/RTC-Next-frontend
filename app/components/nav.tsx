@@ -1,6 +1,6 @@
 "use client";
 
-import IconBox from "./Icon_box";
+import IconBox from "./IconBox";
 import {
   faHouse,
   faMessage,

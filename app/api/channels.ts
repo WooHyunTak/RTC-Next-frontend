@@ -1,4 +1,4 @@
-import axiosClient from "./axios_client";
+import axiosClient from "./axiosClient";
 import convertCase from "@/app/utils/convertCase";
 
 export interface CreateChannelRequest {

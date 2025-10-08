@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import InputSet from "./components/Input_set";
+import InputSet from "./components/InputSet";
 import Link from "next/link";
-import MessageModal from "./components/Message_modal";
+import MessageModal from "./components/MessageModal";
 import useAuth from "./context/AuthContext";
 
 function LoginPage() {

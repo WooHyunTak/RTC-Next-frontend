@@ -1,8 +1,8 @@
 "use client";
 
 import Nav from "../components/Nav";
-import DefaultNav from "../components/sub_navs/Default_nav";
-import DirectMessages from "../components/sub_navs/Direct_messages";
+import DefaultNav from "../components/sub_navs/DefaultNav";
+import DirectMessages from "../components/sub_navs/DirectMessages";
 import { useContentsStore } from "@/app/store/contents";
 import Header from "../components/Header";
 import useAuth from "../context/AuthContext";

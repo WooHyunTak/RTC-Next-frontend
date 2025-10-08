@@ -1,12 +1,12 @@
 "use client";
 import ModalTemplate from "../ModalTemplate";
-import InputSet from "../Input_set";
+import InputSet from "../InputSet";
 import Button from "../Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import usersApi from "@/app/api/users";
-import MessageModal from "../Message_modal";
+import MessageModal from "../MessageModal";
 
 interface RequestFriendModalProps {
   openState: (value: boolean) => void;

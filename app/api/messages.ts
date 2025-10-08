@@ -1,7 +1,7 @@
-import axios_client from "./axios_client";
+import axios_client from "./axiosClient";
 import convertCase from "@/app/utils/convertCase";
 
-interface MessageItem {
+export interface MessageItem {
   id: number;
   fromUser: {
     id: number;

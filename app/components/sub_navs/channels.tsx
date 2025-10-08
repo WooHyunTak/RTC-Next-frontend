@@ -6,7 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import channelsApi from "../../api/channels";
 import { ChannelResponse } from "../../api/channels";
 import { useState } from "react";
-import IconBox from "../Icon_box";
+import IconBox from "../IconBox";
 import CreateChannelModal from "../channels/CreateChannelModal";
 
 // 채널 더보기 컴포넌트

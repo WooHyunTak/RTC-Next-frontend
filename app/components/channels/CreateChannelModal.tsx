@@ -2,7 +2,7 @@
 
 import ModalTemplate from "../ModalTemplate";
 import Button from "../Button";
-import InputSet from "../Input_set";
+import InputSet from "../InputSet";
 import TextareaSet from "../Textarea_set";
 import ToggleSet from "../Toggle_set";
 import { useEffect, useState } from "react";

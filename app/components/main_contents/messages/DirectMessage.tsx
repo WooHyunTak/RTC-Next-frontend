@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircle, faMessage, faFile, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { SimpleEditor } from "@/components/tiptap-templates/simple/simple-editor"
@@ -11,21 +11,23 @@ import { Editor } from "@tiptap/react";
 import Messages from "./Messages";
 import { useWebsocketStore } from "@/app/store/websocketStore";
 import { useQuery } from "@tanstack/react-query";
-import { getMessagesByChannel } from "@/app/api/messages";
+import { getMessagesByChannel, MessageItem } from "@/app/api/messages";
 import { ChannelState } from "@/app/store/contents";
+import { useAuthStore } from "@/app/store/useAuthStore";
 
 function DirectMessage({ channel }: { channel: ChannelState }) {
   const sendMessage = useWebsocketStore((state) => state.sendMessage);
+  const [messages, setMessages] = useState<MessageItem[]>([]);
+  const [tabState, setTabState] = useState<string>("messages");
   const { channelId, toUser } = channel;
-  const { id: toUserId,  name, isOnline, profileImage } = toUser;
+  const authUser = useAuthStore((state) => state.user);
+  const { id: toUserId,  name: toUserName, isOnline, profileImage } = toUser;
 
-  const { data: messages } = useQuery({
+  const { data } = useQuery({
     queryKey: ["messages", channelId],
     queryFn: () => getMessagesByChannel(channelId),
   });
-
-  const [tabState, setTabState] = useState<string>("messages");
-
+  
   const defaultProfileImage = "/images/ic_profile.png";
   const editorRef = useRef<Editor | null>(null)
   
@@ -36,10 +38,27 @@ function DirectMessage({ channel }: { channel: ChannelState }) {
       toUserId: toUserId,
       sendChannelType: "direct"
     }
-    sendMessage(JSON.stringify(data))
-    editor.commands.setContent("")
-    editor.commands.focus()
+    // sendMessage(JSON.stringify(data))
+    setMessages((prev) => [...prev, {
+      id: Date.now(),
+      fromUser: {
+        id: authUser?.id ?? 0,
+        name: authUser?.name ?? "",
+        profileImage: authUser?.profileImage ?? defaultProfileImage
+      },
+      createdAt: new Date(),
+      content: htmlContent,
+      sendChannelType: "direct"
+    }]);
+    editor.commands.setContent("");
+    editor.commands.focus();
   }
+
+  useEffect(() => {
+    if (data) {
+      setMessages(data);
+    }
+  }, [data]);
 
   return (
     <div className="flex justify-between gap-2 flex-col w-full h-full bg-gray-800 p-2">
@@ -48,7 +67,7 @@ function DirectMessage({ channel }: { channel: ChannelState }) {
           <div className="flex relative">
             <Image
                 src={profileImage ?? defaultProfileImage}
-                alt={name}
+                alt={toUserName}
                 width={30}
                 height={30}
             />
@@ -64,7 +83,7 @@ function DirectMessage({ channel }: { channel: ChannelState }) {
             />
             )}
           </div>
-          <span className="text-white">{name}</span>
+          <span className="text-white">{toUserName}</span>
         </div>
         <div className="flex w-full gap-4 p-2 text-white">
           <div 

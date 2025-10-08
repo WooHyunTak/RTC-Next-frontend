@@ -1,4 +1,4 @@
-import axiosClient from "./axios_client";
+import axiosClient from "./axiosClient";
 
 interface SignupRequest {
   loginEmail: string;
