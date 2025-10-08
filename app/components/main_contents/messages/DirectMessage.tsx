@@ -38,7 +38,7 @@ function DirectMessage({ channel }: { channel: ChannelState }) {
       toUserId: toUserId,
       sendChannelType: "direct"
     }
-    // sendMessage(JSON.stringify(data))
+    sendMessage(JSON.stringify(data))
     setMessages((prev) => [...prev, {
       id: Date.now(),
       fromUser: {

@@ -3,8 +3,8 @@
 import ModalTemplate from "../ModalTemplate";
 import Button from "../Button";
 import InputSet from "../InputSet";
-import TextareaSet from "../Textarea_set";
-import ToggleSet from "../Toggle_set";
+import TextareaSet from "../TextareaSet";
+import ToggleSet from "../ToggleSet";
 import { useEffect, useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import channelsApi from "../../api/channels";

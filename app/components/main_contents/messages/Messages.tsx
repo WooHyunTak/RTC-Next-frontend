@@ -2,6 +2,10 @@
 
 import Image from "next/image";
 import formatDate from "@/app/utils/formatDate";
+import { useState } from "react";
+import { faComments, faLaugh, faPlus, faShare } from "@fortawesome/free-solid-svg-icons";
+import IconBox from "@/app/components/IconBox";
+import Tooltip from "@/app/components/Tooltip";
 
 interface MessageItem {
   id: number;
@@ -20,6 +24,13 @@ interface MessageProps {
 
 function Messages({ messages }: MessageProps) {
   const defaultProfileImage = "/images/ic_profile.png";
+  const [openThreadBox, setOpenThreadBox] = useState(false);
+  const [threadMessage, setThreadMessage] = useState<MessageItem | null>(null);
+
+  const handelHoverMessage = (message: MessageItem) => {
+    setOpenThreadBox(true);
+    setThreadMessage(message);
+  }
   
   return (
     <div className="flex flex-1 min-h-0 flex-col overflow-y-auto overflow-x-hidden">
@@ -38,7 +49,7 @@ function Messages({ messages }: MessageProps) {
                 <div className="flex-1 h-[1px] bg-primary-500"></div>
               </div>
             )}
-            <div className="flex items-center gap-2 p-2">
+            <div className="flex items-center gap-2 p-2 hover:bg-gray-700 relative" onMouseEnter={() => handelHoverMessage(message)} onMouseLeave={() => setOpenThreadBox(false)}>
               {isRenderUser && (
                 <Image
                   src={message.fromUser.profileImage ?? defaultProfileImage}
@@ -56,6 +67,44 @@ function Messages({ messages }: MessageProps) {
                 )}
                 <div className={`text-white text-sm ${prevUser == message.fromUser.id && prevDateTime.getMinutes() == currentDateTime.getMinutes() && "pl-9"}`} dangerouslySetInnerHTML={{ __html: message.content }} />
               </div>
+              {openThreadBox && threadMessage?.id === message.id && (
+              <div className="absolute bg-gray-800 border-gray-700 border-2 rounded-lg right-[10px] top-[-15px]">
+                <div className=" rounded-lg flex justify-between items-center gap-2">
+                  <Tooltip
+                    text="반응 추가"
+                    position="bottom"
+                  >
+                    <IconBox
+                    name={faLaugh}
+                    />
+                  </Tooltip>
+                  <Tooltip
+                    text="메시지 공유"
+                    position="bottom"
+                  >
+                    <IconBox
+                    name={faShare}
+                    />
+                  </Tooltip>
+                  <Tooltip
+                    text="스레드 댓글"
+                    position="bottom"
+                  >
+                    <IconBox
+                    name={faComments}
+                    />
+                  </Tooltip>
+                  <Tooltip
+                    text="추가작업"
+                    position="bottom"
+                  >
+                    <IconBox
+                    name={faPlus}
+                    />
+                    </Tooltip>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         )

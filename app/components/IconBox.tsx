@@ -37,7 +37,9 @@ function IconBox({ name, size, label, position, onClick }: IconProps) {
       onClick={onClick}
     >
       {icon}
-      <span>{label}</span>
+      {label && (
+        <span>{label}</span>
+      )}
     </div>
   );
 }
