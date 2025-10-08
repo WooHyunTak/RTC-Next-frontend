@@ -1,4 +1,4 @@
-import ButtonSet from "../../Button_set";
+import ButtonSet from "../../ButtonSet";
 import { faUser, faUsers, faSearch, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import Tooltip from "../../Tooltip";
 import { useQuery } from "@tanstack/react-query";

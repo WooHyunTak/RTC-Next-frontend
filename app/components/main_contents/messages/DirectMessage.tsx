@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircle, faMessage, faFile, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { SimpleEditor } from "@/components/tiptap-templates/simple/simple-editor"
 import { Resizable } from "re-resizable";
-import ButtonSet from "@/app/components/Button_set";
+import ButtonSet from "@/app/components/ButtonSet";
 import { Editor } from "@tiptap/react";
 import Messages from "./Messages";
 import { useWebsocketStore } from "@/app/store/websocketStore";

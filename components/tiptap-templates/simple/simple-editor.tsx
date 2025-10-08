@@ -73,7 +73,7 @@ import { handleImageUpload, MAX_FILE_SIZE } from "@/lib/tiptap-utils"
 
 // --- Styles ---
 import "@/components/tiptap-templates/simple/simple-editor.scss"
-import ButtonSet from "@/app/components/Button_set";
+import ButtonSet from "@/app/components/ButtonSet";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 
 const MainToolbarContent = ({
