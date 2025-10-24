@@ -16,7 +16,7 @@ import { ChannelState } from "@/app/store/contents";
 import { useAuthStore } from "@/app/store/useAuthStore";
 
 function DirectMessage({ channel }: { channel: ChannelState }) {
-  const sendMessage = useWebsocketStore((state) => state.sendMessage);
+  const {sendMessage, onMessage} = useWebsocketStore();
   const [messages, setMessages] = useState<MessageItem[]>([]);
   const [tabState, setTabState] = useState<string>("messages");
   const { channelId, toUser } = channel;
@@ -36,20 +36,20 @@ function DirectMessage({ channel }: { channel: ChannelState }) {
     const data = {
       content: htmlContent,
       toUserId: toUserId,
-      sendChannelType: "direct"
+      sendChannelType: "channel"
     }
     sendMessage(JSON.stringify(data))
-    setMessages((prev) => [...prev, {
-      id: Date.now(),
-      fromUser: {
-        id: authUser?.id ?? 0,
-        name: authUser?.name ?? "",
-        profileImage: authUser?.profileImage ?? defaultProfileImage
-      },
-      createdAt: new Date(),
-      content: htmlContent,
-      sendChannelType: "direct"
-    }]);
+    // setMessages((prev) => [...prev, {
+    //   id: Date.now(),
+    //   fromUser: {
+    //     id: authUser?.id ?? 0,
+    //     name: authUser?.name ?? "",
+    //     profileImage: authUser?.profileImage ?? defaultProfileImage
+    //   },
+    //   createdAt: new Date(),
+    //   content: htmlContent,
+    //   sendChannelType: "direct"
+    // }]);
     editor.commands.setContent("");
     editor.commands.focus();
   }
@@ -58,6 +58,11 @@ function DirectMessage({ channel }: { channel: ChannelState }) {
     if (data) {
       setMessages(data);
     }
+
+    onMessage((socketMessage) => {
+      const data = JSON.parse(socketMessage.data);
+      setMessages((prev) => [...prev, data]);
+    });
   }, [data]);
 
   return (
